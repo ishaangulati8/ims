@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Operator.hasMany(models.Order,{foreignKey:'operatorId',sourceKey:'id'});
     models.Order.belongTo(Operator,{foreignKey:'operatorId',sourceKey:'id'});
+
+    Operator
   };
   return operator;
 };
