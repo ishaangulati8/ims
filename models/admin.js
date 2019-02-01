@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     } catch(error){
       throw new Error(error);
     }
-  })
+  });
   Admin.associate = function(models) {
     // associations can be defined here
+    Admin.hasMany(models.Products,{foreignKey:'adminId',sourceKey:id});
+    models.Products.belongsTo(Admin,{foreignKey:'adminId',targetKey:'id'});
+    Admin.hasMany(models.Operators,{foreignKey:'adminId',sourceKey:'id'});
+    models.Operators.belongsTo(Admin,{foreignKey:'adminId', targetKey:'id'});
+    Admin.hasMany(models.Stockist,{foreignKey:'adminId',sourceKey:'id'});
+    models.Stockist.belongsTo(Admin,{foreignKey:'adminId', targetKey:'id'});
   };
   return Admin;
 };
