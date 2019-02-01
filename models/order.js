@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 
     // Order.hasMany(models.Return,{foreignKey:'orderId',sourceKey:'id'});
     // Return.belongTo(models.Order,{foreignKey:'orderId',sourceKey:'id'});
+
    
   };
   return Order;
