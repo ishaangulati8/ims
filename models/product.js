@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Product.associate = function(models) {
     // associations can be defined here
+    /**
+     * Product and Invetory -> One To Many.
+     */
+    Product.hasMany(models.Inventory,{foreignKey:'productId',sourceKey:'id'});
+    models.Inventory.belongsTo(Product,{foreignKey:'productId',targetKey:'id'});
   };
   return Product;
 };
