@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Stockist.associate = function(models) {
     // associations can be defined here
+    Stockist.hasMany(models.Inventory,{foreignkey:'stockistId',sourceKey:'id'});
+    models.Inventory.belongTo(Stockist,{foreignKey:'stockistId',targetKey:'id'});
   };
   return Stockist;
 };

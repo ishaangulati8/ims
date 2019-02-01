@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     models.Operators.belongsTo(Admin,{foreignKey:'adminId', targetKey:'id'});
     Admin.hasMany(models.Stockist,{foreignKey:'adminId',sourceKey:'id'});
     models.Stockist.belongsTo(Admin,{foreignKey:'adminId', targetKey:'id'});
+
   };
   return Admin;
 };
