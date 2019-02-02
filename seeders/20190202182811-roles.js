@@ -12,7 +12,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-   return queryInterface.bulkInsert('models.Roles', [{
+   return queryInterface.bulkInsert('Roles', [{
     role:'Admin'
   },{
     role:'Operator'
@@ -27,7 +27,7 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
     */
      // Example:
-      return queryInterface.bulkDelete('models.Roles', null, {});
+      return queryInterface.bulkDelete('Roles', null, {});
     
   }
 };

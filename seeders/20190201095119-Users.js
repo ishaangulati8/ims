@@ -1,5 +1,4 @@
 'use strict';
-const model = require('../models');
 module.exports = {
   up: (queryInterface, Sequelize) => {
     /*
@@ -12,7 +11,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-   return queryInterface.bulkInsert(model.Users, [{
+   return queryInterface.bulkInsert('Users', [{
      userName: 'admin',
      passWord: 'admin',
      role: 1
