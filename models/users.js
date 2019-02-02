@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     role: DataTypes.INTEGER
   }, {});
-  Users.beforeCreate( async (user, options) => {
+  Users.beforeCreate( async(user,options) => {
     try{
       if (user.password) {
         const hashPassword = await bcrypt.hash(user.password,10);
