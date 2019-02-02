@@ -12,7 +12,11 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-   return queryInterface.bulkInsert(model.Admin)
+   return queryInterface.bulkInsert(model.Users, [{
+     userName: 'admin',
+     passWord: 'admin',
+     role: 1
+   }])
   },
 
   down: (queryInterface, Sequelize) => {
@@ -23,5 +27,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
+   return queryInterface.bulkDelete('Users',null,{});
   }
 };
