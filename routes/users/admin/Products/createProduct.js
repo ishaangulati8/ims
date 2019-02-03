@@ -7,7 +7,7 @@ const model=require('../../../../models/index');
  */
 async function createProduct(req,res,next){
     try{
-        const product=models.Product.create({
+        const product=model.Product.create({
             productName:req.body.productName,
             userId:req.body.userId,
             salePrice:req.body.salePrice,
