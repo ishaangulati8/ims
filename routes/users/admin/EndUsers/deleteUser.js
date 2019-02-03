@@ -1,10 +1,15 @@
 const model=require('../../../models/index');
-
+/**
+ * @description - Delete an existing user.
+ * @param {request} req 
+ * @param {response} res 
+ * @param {next} next 
+ */
 async function deleteUser(req,res,next){
     try{
-        const user=models.users.findOne({
+        const user = models.users.findOne({
             where:{
-                id:req.params.id
+                id:req.params.id,
             }
         });
         if(user){
