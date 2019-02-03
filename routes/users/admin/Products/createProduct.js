@@ -1,5 +1,10 @@
 const model=require('../../../models/index');
-
+/**
+ * @description - create a new Product
+ * @param {request} req 
+ * @param {response} res 
+ * @param {next} next 
+ */
 async function createProduct(req,res,next){
     try{
         const product=models.Product.create({

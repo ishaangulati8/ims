@@ -1,5 +1,10 @@
 const model=require('../../../models/index');
-
+/**
+ * @description - Delete a Product according to the product id.
+ * @param {request} req 
+ * @param {response} res 
+ * @param {next} next 
+ */
 async function deleteProduct(req,res,next){
     try{
         const product=models.Product.findOne({
