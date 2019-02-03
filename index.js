@@ -9,7 +9,14 @@ const passport = require('passport');
 
 const passportLocal = require('passport-local');
 
-//const router = require('./Routes');
+const morgan = require('morgan');
+
+const router = require('./routes');
+
+/**
+ * Using morgan for logging
+ */
+app.use(morgan);
 
 /**
  * Use json 
@@ -19,7 +26,7 @@ app.use(bodyparser.json());
 /**
  * Middle Ware for handling the requests.
  */
-// app.use('/api', router);
+app.use('/api', router);
 
 /**
  * Gloabal Error Handler.
