@@ -2,9 +2,7 @@ const router = require('express').Router();
 
 const create = require('./createUser');
 
-const listOperator = require('./listOperator');
-
-const listStockist = require('./listStockist');
+const list = require('./list');
 
 const updateUser = require('./updateUser');
 
@@ -15,15 +13,9 @@ const deleteUser = require('./deleteUser');
 router.post('/add', create);
 
 /**
- * Listing all the operators.
+ * Listing the users accoding to the role.
  */
-router.get('/listOperator', listOperator);
-
-/**
- * Listing all the Stockists.
- */
-
-router.get('/listStockist',listStockist);
+router.get('/list/:role', list);
 
 /**
  * Updating the Users.

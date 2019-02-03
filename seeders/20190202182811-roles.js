@@ -13,11 +13,17 @@ module.exports = {
       }], {});
     */
    return queryInterface.bulkInsert('Roles', [{
-    role:'Admin'
+    role:'Admin',
+     createdAt:'2016-06-22 19:10:25-07',
+     updatedAt:'2016-06-23 19:10:25-07',
   },{
-    role:'Operator'
+    role:'Operator',
+    createdAt:'2016-06-22 19:10:25-07',
+     updatedAt:'2016-06-23 19:10:25-07',
   },{
-    role:'Stockist'
+    role:'Stockist',
+    createdAt:'2016-06-22 19:10:25-07',
+     updatedAt:'2016-06-23 19:10:25-07',
   }], {});
   },
 
