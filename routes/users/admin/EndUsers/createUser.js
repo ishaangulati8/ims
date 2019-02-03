@@ -1,4 +1,4 @@
-const model = require('../../../models');
+const model = require('../../../models/index');
 
 async function createUser(req,res,next){
     try{
