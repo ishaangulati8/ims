@@ -1,4 +1,4 @@
-const model=require('../../../models/index');
+const model=require('../../../../models/index');
 /**
  * @description - create a new Product
  * @param {request} req 

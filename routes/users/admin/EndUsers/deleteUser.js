@@ -1,4 +1,4 @@
-const model=require('../../../models/index');
+const model=require('../../../../models/index');
 /**
  * @description - Delete an existing user.
  * @param {request} req 

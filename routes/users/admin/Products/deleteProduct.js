@@ -1,4 +1,4 @@
-const model=require('../../../models/index');
+const model=require('../../../../models/index');
 /**
  * @description - Delete a Product according to the product id.
  * @param {request} req 
