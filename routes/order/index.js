@@ -11,6 +11,6 @@ router.post('/add',createHandler);
 /**
  * list Orders
  */
-router.length('/list',listHandler);
+router.get('/list:id',listHandler);
 
 module.exports=router;
