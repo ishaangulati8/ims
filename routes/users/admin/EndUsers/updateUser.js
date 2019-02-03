@@ -1,29 +1,34 @@
 const models= require('../../../models/index');
 
 module.exports=updateUser;
-
-async function updateUser(req,res,next){
-    try{
-        const user=await models.users.findOne({
-           where:{
-               id:req.params.id
-           }
-        })
-        if(user){
-            user.username=req.body.name
-            user.password=req.body.password
-            user.role=req.body.role
-            await note.save()
+/**
+ * @description - Update a user according to the user id.
+ * @param {request} req 
+ * @param {response} res 
+ * @param {next} next 
+ */
+const update = async (req, res, next) => {
+    try {
+        let userExists = await models.Users.findOne({
+            where: {
+                id: req.param.id,
+            }
+        });
+        if (userExists) {
+            userExists.userName = req.body.username,
+            userExists.password = req.body.password,
+            userExists.role = req.body.role;
+            await userExists.save();
+            let m = `${userExists.userName} updated`;
             res.json({
-                success:true,
-                user,
+                m,
             })
-        }else{
-            throw 'user not found!'
+        } else {
+            let m = 'User does not exist';
+            throw m;
         }
-
-    }
-    catch(error){
+    } catch (error) {
         next(error);
     }
 }
+module.exports = update;

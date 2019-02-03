@@ -1,5 +1,10 @@
 const models = require('../../../../models');
-
+/**
+ * @description - List user according to the role.
+ * @param {requset} req 
+ * @param {response} res 
+ * @param {next} next 
+ */
 const listUsers = async (req, res, next) => {
     try {
         const role = req.params.role;
@@ -20,9 +25,7 @@ const listUsers = async (req, res, next) => {
         }
         else {
             let m = 'No user found';
-            res.json({
-                m,
-            });
+            throw m;
         }
         
     } catch (error) {
