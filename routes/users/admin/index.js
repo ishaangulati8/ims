@@ -1,10 +1,8 @@
 const router = require('express').Router();
-const operator = require('./operator');
-const stockist = require('./stockist');
+const endUser=require('./EndUsers');
 const product = require('./Products');
 
-router.use('/operator',operator);
-router.use('/stockist',stockist);
+router.use('/EndUser',endUser);
 router.use('/product',product);
 
 module.exports = router;
