@@ -1,4 +1,4 @@
-const model=require('../../../models/index');
+const model=require('../../../../models');
 
 async function createProduct(req,res,next){
     try{

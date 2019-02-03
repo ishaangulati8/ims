@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     userName: DataTypes.STRING,
@@ -21,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
      * User and Inventory -> one to Many
      */
     Users.hasMany(models.Inventory,{foreignKey:'userId',sourceKey:'id'});
-    models.Inventory.belongsTo(User,{foreignKey:'userId',sourceKey:'id'});
+    models.Inventory.belongsTo(Users,{foreignKey:'userId',sourceKey:'id'});
     /**
      * User and Product -> one to many
      */
-    User.hasMany(model.Product,{foreignKey:'userId',sourceKey:'id'});
-    models.Product.belongsTo(User,{foreignKey:'userId',sourceKey:id});
+    Users.hasMany(models.Product,{foreignKey:'userId',sourceKey:'id'});
+    models.Product.belongsTo(Users,{foreignKey:'userId',sourceKey:'id'});
   };
   return Users;
 };

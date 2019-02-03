@@ -16,7 +16,7 @@ const router = require('./routes');
 /**
  * Using morgan for logging
  */
-app.use(morgan);
+//app.use(morgan);
 
 /**
  * Use json 
@@ -31,19 +31,12 @@ app.use('/api', router);
 /**
  * Gloabal Error Handler.
  */
-console.log(process.env.NODE_ENV);
-console.log(process.env.DB_NAME);
-
- app.use( (error, req, res, next) =>{
-     res.status(400).json({
+ app.use((error, req, res, next) =>{
+     res.json({
         error,
      })
  } );
 
- app.listen(process.env.PORT, (error) => {
-     if (error) {
-         console.log(error);
-     } else {
-         console.log('Working');
-     }
- })
+ app.listen(process.env.PORT_NO, () => {
+         console.log('Working '+ process.env.PORT_NO);
+ });

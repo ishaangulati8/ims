@@ -1,6 +1,6 @@
 const router=require('express').Router();
 const createProductHandler=require('./createProduct');
-const deleteProductHandler=require('./deleteProduct');
+//const deleteProductHandler=require('./deleteProduct');
 const listHandler=require('./listProducts');
 const updateHandler=require('./updateProduct');
 
@@ -12,7 +12,7 @@ router.post('/add',createProductHandler);
 /**
  * delete existing product
  */
-router.delete('/delete/:id',deleteProductHandler);
+//router.delete('/delete/:id',deleteProductHandler);
 
 /**
  * list products

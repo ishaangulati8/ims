@@ -28,4 +28,4 @@ router.put('/updateUser/:id', updateUser);
  */
 router.delete('/deleteUser/:id',deleteUser);
 
-module.exports = user;
+module.exports = router;

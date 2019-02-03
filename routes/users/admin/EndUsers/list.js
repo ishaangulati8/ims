@@ -7,16 +7,17 @@ const models = require('../../../../models');
  */
 const listUsers = async (req, res, next) => {
     try {
-        const role = req.params.role;
-        const roleExists = await models.Role.findOne({
-            where: {
-             id:role,
-            },
-        });
+        // const role = req.params.role;
+        // const roleExists = await models.Roles.findOne({
+        //     where: {
+        //      id:Number(role),
+        //     },
+        // });
+        let roleExists = true;
         if (roleExists) {
             const users = await models.Users.findAll({
                 where: {
-                    role: role,
+                    role: req.params.role,
                 }
             });
             res.json({
@@ -24,11 +25,12 @@ const listUsers = async (req, res, next) => {
             });
         }
         else {
-            let m = 'No user found';
+            let m = "Given role doesn't exist";
             throw m;
         }
         
     } catch (error) {
+        console.log(error);
         next(error);
     }
 }

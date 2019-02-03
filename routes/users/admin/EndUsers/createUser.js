@@ -1,4 +1,4 @@
-const model = require('../../../models/index');
+const models = require('../../../../models');
 
 /**
  * @description - Create a new User.
@@ -8,8 +8,8 @@ const model = require('../../../models/index');
  */
 async function createUser(req,res,next){
     try{
-        const user = await models.users.create({
-            userName:req.body.username,
+        const user = await models.Users.create({
+            userName:req.body.userName,
             password:req.body.password,
             role:req.body.role
         });
@@ -19,6 +19,7 @@ async function createUser(req,res,next){
         })
 
     }catch(error){
+        console.log(error);
         next(error);
     }
 }
