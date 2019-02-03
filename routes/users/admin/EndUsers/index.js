@@ -1,14 +1,39 @@
-const router=require('express').Router();
-const createHandler=require('./createUser');
-const deleteHandler=require('./deleteUser.js');
-const listOperatorHandler=require('./listOperator');
-const listStockistHandler=require('./listStockist');
-const updateHandler=require('./updateUser');
+const router = require('express').Router();
 
-router.post('/add',createHandler);
-router.delete('/deleteUsers/:id',deleteHandler);
-router.get('/listStockist',listStockistHandler);
-router.get('/listOperator',listOperatorHandler);
-router.put('/updateUsers/:id',updateHandler);
+const create = require('./createUser');
 
-module.exports=router;
+const listOperator = require('./listOperator');
+
+const listStockist = require('./listStockist');
+
+const updateUser = require('./updateUser');
+
+const deleteUser = require('./deleteUser');
+/**
+ * Adding a new User
+ */
+router.post('/add', create);
+
+/**
+ * Listing all the operators.
+ */
+router.get('/listOperator', listOperator);
+
+/**
+ * Listing all the Stockists.
+ */
+
+router.get('/listStockist',listStockist);
+
+/**
+ * Updating the Users.
+ */
+
+router.put('/updateUser/:id', updateUser);
+
+/**
+ * Deleting a user.
+ */
+router.delete('/deleteUser/:id',deleteUser);
+
+module.exports = user;
