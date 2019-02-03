@@ -12,7 +12,7 @@ router.post('/add',createProductHandler);
 /**
  * delete existing product
  */
-router.delete('/delete',deleteProductHandler);
+router.delete('/delete/:id',deleteProductHandler);
 
 /**
  * list products
@@ -22,6 +22,6 @@ router.get('/list',listHandler);
 /**
  * update existing product description
  */
-router.post('/update',updateHandler);
+router.post('/update/:id',updateHandler);
 
 module.exports=router;
