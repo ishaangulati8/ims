@@ -15,7 +15,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       time: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       quantity: {
         type: Sequelize.INTEGER
