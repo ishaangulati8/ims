@@ -15,8 +15,8 @@ module.exports = {
      "userName": 'admin',
      "password": 'admin',
      "role":1,
-     "createdAt":'2016-06-22 19:10:25-07',
-     "updatedAt":'2016-06-23 19:10:25-07',
+     "createdAt":new Date(),
+     "updatedAt":new Date(),
      "id":1,
    }])
   },
