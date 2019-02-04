@@ -1,4 +1,4 @@
-const model=require('../../../../models/index');
+const models=require('../../../../models');
 /**
  * @description - Delete an existing user.
  * @param {request} req 
@@ -7,7 +7,7 @@ const model=require('../../../../models/index');
  */
 async function deleteUser(req,res,next){
     try{
-        const user = models.users.findOne({
+        const user = await models.Users.findOne({
             where:{
                 id:req.params.id,
             }
@@ -21,6 +21,7 @@ async function deleteUser(req,res,next){
             throw 'user does not exist!';
         }
     }catch(error){
+        console.log(error);
         next(error);
     }
 }

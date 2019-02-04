@@ -1,6 +1,4 @@
-const models= require('../../../../models/index');
-
-module.exports=updateUser;
+const models= require('../../../../models');
 /**
  * @description - Update a user according to the user id.
  * @param {request} req 

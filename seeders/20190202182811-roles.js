@@ -13,6 +13,7 @@ module.exports = {
       }], {});
     */
    return queryInterface.bulkInsert('Roles', [{
+<<<<<<< HEAD
     role:'Admin',
     createdAt:'2016-06-22 19:10:25-07',
     updatedAt:'2016-06-23 19:10:25-07',
@@ -24,6 +25,22 @@ module.exports = {
     role:'Stockist',
     createdAt:'2016-06-22 19:10:25-07',
     updatedAt:'2016-06-23 19:10:25-07',
+=======
+     "role":'Admin',
+     "createdAt":'2016-06-22 19:10:25-07',
+     "updatedAt":'2016-06-23 19:10:25-07',
+     "id":1,
+  },{
+    "role":'Operator',
+    "createdAt":'2016-06-22 19:10:25-07',
+    "updatedAt":'2016-06-23 19:10:25-07',
+    "id":2,
+  },{
+    "role":'Stockist',
+    "createdAt":'2016-06-22 19:10:25-07',
+    "updatedAt":'2016-06-23 19:10:25-07',
+    "id":3,
+>>>>>>> 056cbc502e77d80d5ea68db51f7fcd6af7fe6241
   }], {});
   },
 

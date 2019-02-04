@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      * Order and Return -> one to many
      */
     Order.hasMany(models.Return,{foreignKey:'orderId',sourceKey:'id'});
-    Return.belongTo(models.Order,{foreignKey:'orderId',sourceKey:'id'});
+    models.Return.belongsTo(models.Order,{foreignKey:'orderId',sourceKey:'id'});
    
   };
   return Order;
