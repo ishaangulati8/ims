@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+require('dotenv').config()
+>>>>>>> cecf3d1f547b14fa3b3a689730e6ea0f843b9498
 
 const express = require('express');
 require('dotenv').config();
@@ -8,17 +12,28 @@ const bodyparser = require('body-parser');
 
 const passport = require('passport');
 
+<<<<<<< HEAD
 const jwt=require('jsonwebtoken');
 
 const passportLocal = require('passport-local');
 
+=======
+>>>>>>> cecf3d1f547b14fa3b3a689730e6ea0f843b9498
 const morgan = require('morgan');
 
 const router = require('./routes');
 
+<<<<<<< HEAD
 
 
 
+=======
+const localStatergy = require('./utils/localStatergy');
+
+app.use(passport.initialize());
+
+app.use(localStatergy)
+>>>>>>> cecf3d1f547b14fa3b3a689730e6ea0f843b9498
 
 /**
  * Using morgan for logging

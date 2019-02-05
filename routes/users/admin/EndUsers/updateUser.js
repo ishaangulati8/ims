@@ -1,4 +1,4 @@
-const models= require('../../../../models');
+ const models = require('../../../../models');
 /**
  * @description - Update a user according to the user id.
  * @param {request} req 
@@ -13,8 +13,8 @@ const update = async (req, res, next) => {
             }
         });
         if (userExists) {
-            userExists.userName = req.body.username,
-            userExists.password = req.body.password,
+            userExists.userName = req.body.userName;
+            userExists.password = req.body.password;
             userExists.role = req.body.role;
             await userExists.save();
             let m = `${userExists.userName} updated`;

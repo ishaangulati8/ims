@@ -6,22 +6,32 @@ const models = require('../../../../models');
  * @param {response} res 
  * @param {next} next 
  */
-async function createUser(req,res,next){
-    try{
-        const user = await models.Users.create({
-            userName:req.body.userName,
-            password:req.body.password,
-            role:req.body.role
+async function createUser(req, res, next) {
+    try {
+        const roleExists = await models.Roles.findOne({
+            where: {
+                role: req.body.role,
+            }
         });
-        res.json({
-            success:true,
-            user
-        })
+        if (roleExists) {
+            const user = await models.Users.create({
+                userName: req.body.userName,
+                password: req.body.password,
+                role: req.body.role
+            });
+            res.json({
+                success: true,
+                user
+            })
+        } else {
+            let m = `${req.body.role} doesn't exist. Enter a valid role.`;
+            throw m;
+        }
 
-    }catch(error){
+    } catch (error) {
         console.log(error);
         next(error);
     }
 }
 
-module.exports=createUser;
+module.exports = createUser;

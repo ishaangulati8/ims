@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     productId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     time: DataTypes.DATE,
-    quantity: DataTypes.INTEGER
+    quantity: DataTypes.INTEGER,
+    salePrice: DataTypes.INTEGER,
   }, {});
   Inventory.associate = function(models) {
     // associations can be defined here
