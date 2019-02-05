@@ -16,7 +16,8 @@ async function deleteProduct(req,res,next){
             const removeFromInventory = await models.Inventory.create({
                 productId: product.id,
                 userId: product.userId,
-                quantity: 0, 
+                quantity: 0,
+                salePrice: product.salePrice,
             });
            await product.destroy();
            return res.json({

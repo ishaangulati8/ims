@@ -19,6 +19,7 @@ async function createProduct(req,res,next){
             productId: pid,
             userId: req.body.userId,
             quantity: req.body.Quantity, 
+            salePrice: req.body.salePrice,
         });
         res.json({
             success:true,
