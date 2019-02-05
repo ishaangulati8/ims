@@ -2,6 +2,10 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+const passportJWT=require('passport-jwt');
+const JWTStrategy=passportJWT.Strategy;
+const ExtractJWT=passportJWT.ExtractJwt;
+require('dotenv').config();
 
 
 // Load User model
@@ -38,6 +42,26 @@ passport.use(
     }
   )
 )
+var opts={};
+opts.jwtFromRequest=ExtractJWT.fromAuthHeaderAsBearerToken();
+opts.secretOrKey= process.env.secret;
+
+passport.use(new JWTStrategy(opts,
+async (jwtPayload,done)=> {
+  try{
+    const isUser= await models.Users.findOneById(jwtpayload.id);
+    if(isUser){
+      return(null,isUser);
+    }else{
+      return(null,false,{message:'Username not registered!'})
+    }
+      
+  }catch(error){
+    done(error);
+  }
+}
+))
+
 module.exports=passport;
 
 
