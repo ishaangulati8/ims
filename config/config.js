@@ -22,4 +22,3 @@ module.exports = {
       "dialect": "mysql",
     }
 }
-console.log(module.exports);
