@@ -9,12 +9,17 @@ async function createProduct(req,res,next){
             productDescription:req.body.productDescription,
             Quantity:req.body.Quantity
         })
-        const productId = await models.Product.findOne({
+        const findProduct = await models.Product.findOne({
             where: {
                 productName: req.body.productName,
             }
         });
-        
+        const pid = findProduct.id;
+        const addToInventory = await models.create({
+            productId: pid,
+            userId: req.body.userId,
+            quantity: req.body.Quantity, 
+        });
         res.json({
             success:true,
             product

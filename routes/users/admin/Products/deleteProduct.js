@@ -7,19 +7,27 @@ const model=require('../../../../models/index');
  */
 async function deleteProduct(req,res,next){
     try{
-        const product=models.Product.findOne({
+        const product = models.Product.findOne({
             where:{
-                id:req.params.id
+                id: req.params.id
             }
         })
-        if(product){
+        if (product) {
+            const removeFromInventory = await models.Inventory.create({
+                productId: product.id,
+                userId: product.userId,
+                quantity: 0, 
+            });
            await product.destroy();
-           res.json({
-               success:true
+           return res.json({
+               success: true
            })
-        }else{
-            throw 'product does not exist!';
+        } else {
+            let m = 'product does not exist!'
+            throw m;
         }
-    }catch(error){next(error)}
+    } catch (error) {
+        next(error)
+    }
 }
 module.exports=deleteProduct;
