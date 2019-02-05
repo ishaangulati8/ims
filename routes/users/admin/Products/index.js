@@ -1,7 +1,11 @@
 const router=require('express').Router();
+
 const createProductHandler=require('./createProduct');
+
 //const deleteProductHandler=require('./deleteProduct');
+
 const listHandler=require('./listProducts');
+
 const updateHandler=require('./updateProduct');
 
 /**

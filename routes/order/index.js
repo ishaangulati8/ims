@@ -1,16 +1,16 @@
-const router=require('express').Router();
+const router = require('express').Router();
 
-const createHandler=require('./createOrder');
-const listHandler=require('./listOrder');
+const createHandler = require('./createOrder');
+const listHandler = require('./listOrder');
 
 /**
  * add new order
  */
-router.post('/add',createHandler);
+router.post('/add', createHandler);
 
 /**
  * list Orders
  */
-router.get('/list:id',listHandler);
+router.get('/listall', listHandler);
 
-module.exports=router;
+module.exports = router;

@@ -9,7 +9,7 @@ const createReturn = async (req, res, next) => {
     try {
         const orderExists = await models.orderItems.findOne({
             where: {
-                orderId : req.body.id,
+                orderId: req.body.id,
             }
         });
         if (orderExists) {
@@ -33,7 +33,7 @@ const createReturn = async (req, res, next) => {
             let m = "The order doesn't exist."
             throw m;
         }
-    } catch(error){
+    } catch (error) {
         next(error);
     }
 }

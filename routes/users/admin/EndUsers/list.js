@@ -7,17 +7,16 @@ const models = require('../../../../models');
  */
 const listUsers = async (req, res, next) => {
     try {
-        // const role = req.params.role;
-        // const roleExists = await models.Roles.findOne({
-        //     where: {
-        //      id:Number(role),
-        //     },
-        // });
-        let roleExists = true;
+        const role = req.params.role;
+        const roleExists = await models.Roles.findOne({
+            where: {
+             id: req.params.id,
+            },
+        });
         if (roleExists) {
             const users = await models.Users.findAll({
                 where: {
-                    role: req.params.role,
+                    role: role,
                 }
             });
             res.json({
