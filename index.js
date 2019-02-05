@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const express = require('express');
 
 const app = express();
@@ -7,11 +8,15 @@ const bodyparser = require('body-parser');
 
 const passport = require('passport');
 
-const passportLocal = require('passport-local');
-
 const morgan = require('morgan');
 
 const router = require('./routes');
+
+const localStatergy = require('./utils/localStatergy');
+
+app.use(passport.initialize());
+
+app.use(localStatergy)
 
 /**
  * Using morgan for logging
