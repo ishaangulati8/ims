@@ -1,32 +1,32 @@
- const models = require('../../../../models');
+const models = require('../../../../models');
 /**
  * @description - Update a user according to the user id.
- * @param {request} req 
- * @param {response} res 
- * @param {next} next 
+ * @param {request} req
+ * @param {response} res
+ * @param {next} next
  */
 const update = async (req, res, next) => {
     try {
-        let userExists = await models.Users.findOne({
+        const userExists = await models.Users.findOne({
             where: {
                 id: req.param.id,
-            }
+            },
         });
         if (userExists) {
             userExists.userName = req.body.userName;
             userExists.password = req.body.password;
             userExists.role = req.body.role;
             await userExists.save();
-            let m = `${userExists.userName} updated`;
+            const m = `${userExists.userName} updated`;
             res.json({
                 m,
-            })
+            });
         } else {
-            let m = 'User does not exist';
+            const m = 'User does not exist';
             throw m;
         }
     } catch (error) {
         next(error);
     }
-}
+};
 module.exports = update;

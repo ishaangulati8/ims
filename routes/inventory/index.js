@@ -6,7 +6,7 @@ const list = require('./listInventory');
 /**
  * Router to add new record int the inventory.
  */
-router.post('/add', addd);
+router.post('/add', add);
 
 /**
  * Router to list all records in the inventory.
