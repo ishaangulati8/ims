@@ -1,8 +1,7 @@
-const router=require('express').Router;
+const router=require('express').Router();
 const jwt=require('jsonwebtoken');
-//const passport=require('passport');
-const passport=require('../../utilities/passport');
-require('dotenv').config();
+const passport=require('passport');
+require('../../utilities/passport');
 
 router.post('/login',(req,res,next)=>{
     passport.authenticate('local',{session:false},(err,user,info)=>{
@@ -27,3 +26,4 @@ router.post('/login',(req,res,next)=>{
         }
     })(req,res,next);
 });     
+module.exports=router;
