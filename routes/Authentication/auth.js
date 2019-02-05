@@ -1,4 +1,4 @@
-const router=require('express').Router;
+const router=require('express').Router();
 const jwt=require('jsonwebtoken');
 //const passport=require('passport');
 const passport=require('../../utilities/passport');
