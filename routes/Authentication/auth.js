@@ -1,29 +1,28 @@
-const router=require('express').Router();
-const jwt=require('jsonwebtoken');
-//const passport=require('passport');
-const passport=require('../../utilities/passport');
-require('dotenv').config();
+const router = require('express').Router();
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+require('../../utilities/passport');
 
-router.post('/login',(req,res,next)=>{
-    passport.authenticate('local',{session:false},(err,user,info)=>{
-        if(err){
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', { session: false }, (err, user) => {
+        if (err) {
             return next(err);
         }
-        if(user){
-            req.login(user, {session: false}, (err) => {
-                if (err) {
-                    res.send(err);
+        if (user) {
+            req.login(user, { session: false }, (error) => {
+                if (error) {
+                    res.send(error);
                 }
-            })    
+            });
             res.json({
-                success:true
-            })
+                success: true,
+            });
             const token = jwt.sign(user, process.env.secret);
-            return res.json({user, token});
-        }else{
-            res.json({
-                success:false
-            })
+            return res.json({ user, token });
         }
-    })(req,res,next);
-});     
+        return res.json({
+            success: false,
+        });
+    })(req, res, next);
+});
+module.exports = router;

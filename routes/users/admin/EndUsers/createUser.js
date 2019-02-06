@@ -17,7 +17,7 @@ async function createUser(req, res, next) {
             const user = await models.Users.create({
                 userName: req.body.userName,
                 password: req.body.password,
-                role: req.body.role
+                role: roleExists.id,
             });
             res.json({
                 success: true,

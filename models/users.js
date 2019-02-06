@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         } catch (error) {
             throw new Error(error);
         }
-    })
+    });
     Users.associate = function (models) {
         // associations can be defined here
         /**

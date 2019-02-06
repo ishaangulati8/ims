@@ -8,6 +8,6 @@ require('../../utilities/passport');
 
 
 
-router.use('/admin', passport.authenticate('jwt', {session: false}),admin);
+router.use('/admin', /*  passport.authenticate('jwt', {session: false}), */admin);
 
 module.exports = router;

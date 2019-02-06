@@ -1,41 +1,39 @@
-//const passport=require('passport');
+const passport=require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-const passport = require('passport');
 const passportJWT=require('passport-jwt');
 const JWTStrategy=passportJWT.Strategy;
 const ExtractJWT=passportJWT.ExtractJwt;
-require('dotenv').config();
+
 
 
 // Load User model
-const User = require('../models/index');
+const models = require('../models');
 
 passport.use(
   new LocalStrategy({
-    usernameField: 'username'
+    usernameField: 'userName',
+    passwordField: 'password',
+    passReqToCallback: true
   },
-    async (username, password, done) => {
+    async (req, username, password, done) => {
       try {
         // Match user
-        const isUser = await User.Users.findOne({
+        const isUser = await models.Users.findOne({
           where: {
-            username: username
+            userName: username,
           }
         });
         if (isUser) {
-          const match = await bcrypt.compare(password, isUser.password);
+          let match = (password === isUser.password)//await bcrypt.compare(password, isUser.password);
           if (match) {
-            return done(null, isUser);
+            return done(null, true);
           } else {
             return done(null, false, { message: 'Password incorrect' });
           }
         } else {
           return done(null, false, { message: 'This username is not registered' });
         }
-
-
-
       } catch (error) {
         done(error);
       }
@@ -51,9 +49,9 @@ async (jwtPayload,done)=> {
   try{
     const isUser= await models.Users.findOneById(jwtpayload.id);
     if(isUser){
-      return(null,isUser);
+      done(null,isUser);
     }else{
-      return(null,false,{message:'Username not registered!'})
+      done(null,false,{message:'Username not registered!'})
     }
       
   }catch(error){
