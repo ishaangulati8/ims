@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 // const order = require('./order');
 
+const auth=require('./Authentication/auth');
+
 const users = require('./users');
 
 // const returns = require('./return');
@@ -10,6 +12,7 @@ const users = require('./users');
 
 router.use('/user', users);
 
+router.use('/auth',auth);
 // router.use('/order', order);
 
 // router.use('/returns', returns);

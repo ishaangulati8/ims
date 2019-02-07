@@ -2,21 +2,23 @@ require('dotenv').config();
 
 const express = require('express');
 
+
 const app = express();
 
 const bodyparser = require('body-parser');
 
 const passport = require('passport');
 
+const jwt=require('jsonwebtoken');
+
+const passportLocal = require('passport-local');
+
 const morgan = require('morgan');
 
 const router = require('./routes');
 
-const localStatergy = require('./utils/localStatergy');
 
-app.use(passport.initialize());
 
-app.use(localStatergy);
 
 /**
  * Using morgan for logging
@@ -50,6 +52,7 @@ app.listen(process.env.PORT_NO, () => {
     console.log(`Working ${process.env.PORT_NO}`);
 });
 
+<<<<<<< HEAD
 app.post('/login', (req, res, next) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err) {
@@ -72,3 +75,5 @@ app.post('/login', (req, res, next) => {
         });
     })(req, res, next);
 });
+=======
+>>>>>>> cd8f5ffdefb0607fbec91d61c01d730f6dfa8a68
