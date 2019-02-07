@@ -5,7 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     const Users = sequelize.define('Users', {
         userName: DataTypes.STRING,
         password: DataTypes.STRING,
+<<<<<<< HEAD
         role: DataTypes.INTEGER,
+=======
+        role: DataTypes.INTEGER
+>>>>>>> 8ed045a6ed76aff24d85305495d211314479f944
     }, {});
     Users.beforeCreate(async (user, options) => {
         try {
@@ -18,15 +22,15 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
     Users.associate = function (models) {
-    // associations can be defined here
-    /**
-     * User and Inventory -> one to Many
-     */
+        // associations can be defined here
+        /**
+         * User and Inventory -> one to Many
+         */
         Users.hasMany(models.Inventory, { foreignKey: 'userId', sourceKey: 'id' });
         models.Inventory.belongsTo(Users, { foreignKey: 'userId', sourceKey: 'id' });
         /**
-     * User and Product -> one to many
-     */
+         * User and Product -> one to many
+         */
         Users.hasMany(models.Product, { foreignKey: 'userId', sourceKey: 'id' });
         models.Product.belongsTo(Users, { foreignKey: 'userId', sourceKey: 'id' });
     };

@@ -1,4 +1,4 @@
-const model = require('../../../../models/index');
+const models = require('../../../../models/index');
 /**
  * @description - Delete a Product according to the product id.
  * @param {request} req
@@ -7,13 +7,13 @@ const model = require('../../../../models/index');
  */
 async function deleteProduct(req, res, next) {
     try {
-        const product = models.Product.findOne({
+        const product = await models.Product.findOne({
             where: {
                 id: req.params.id,
             },
         });
         if (product) {
-            const removeFromInventory = await models.Inventory.create({
+            await models.Inventory.create({
                 productId: product.id,
                 userId: product.userId,
                 quantity: 0,

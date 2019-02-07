@@ -21,7 +21,7 @@ const update = async (req, res, next) => {
             productExists.Quantity = req.body.Quantity;
             await productExists.save();
             const m = `${productExists.productName} updated`;
-            const updateInventory = await models.Inventory.create({
+            await models.Inventory.create({
                 productId: id,
                 userId: req.body.userId,
                 quantity: req.body.Quantity,

@@ -1,6 +1,7 @@
-const model = require('../../../../models');
+const models = require('../../../../models');
 
-async function createProduct(req, res, next) {
+// eslint-disable-next-line comma-spacing
+async function createProduct(req,res, next) {
     try {
         const product = await models.Product.create({
             productName: req.body.productName,
@@ -9,13 +10,8 @@ async function createProduct(req, res, next) {
             productDescription: req.body.productDescription,
             Quantity: req.body.Quantity,
         });
-        const findProduct = await models.Product.findOne({
-            where: {
-                productName: req.body.productName,
-            },
-        });
-        const pid = findProduct.id;
-        const addToInventory = await models.create({
+        const pid = product.id;
+        await models.Inventory.create({
             productId: pid,
             userId: req.body.userId,
             quantity: req.body.Quantity,
