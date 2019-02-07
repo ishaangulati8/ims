@@ -11,12 +11,15 @@ const updateProduct = require('../../utils/updateProduct');
 const returnDriver = async (req, res, next) => {
     try {
         const returns = await createReturn(req.userId, req.orders);
+        res.json({
+            returns,
+        });
     } catch (error) {
         next(error);
     }
 };
 /**
- *
+ *@description - Function creates a return.
  * @param {*userId} userId
  * @param {array of objects of returns} orders
  */

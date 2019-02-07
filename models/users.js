@@ -5,11 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     const Users = sequelize.define('Users', {
         userName: DataTypes.STRING,
         password: DataTypes.STRING,
-<<<<<<< HEAD
         role: DataTypes.INTEGER,
-=======
-        role: DataTypes.INTEGER
->>>>>>> 8ed045a6ed76aff24d85305495d211314479f944
     }, {});
     Users.beforeCreate(async (user, options) => {
         try {

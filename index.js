@@ -51,12 +51,3 @@ app.use((error, req, res, next) => {
 app.listen(process.env.PORT_NO, () => {
     console.log(`Working ${process.env.PORT_NO}`);
 });
-
-
-     });
- });
-
- app.listen(process.env.PORT_NO, () => {
-         console.log('Working '+ process.env.PORT_NO);
- });
-
