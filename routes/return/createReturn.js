@@ -2,7 +2,7 @@ const models = require('../../models');
 /**
  * @description - function to create returns.
  * @param {req} req 
- * @param {reaponse} res 
+ * @param {response} res 
  * @param {next} next 
  */
 const createReturn = async (req, res, next) => {
