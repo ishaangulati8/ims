@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const express = require('express');
 
@@ -9,7 +9,7 @@ const bodyparser = require('body-parser');
 
 const passport = require('passport');
 
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const passportLocal = require('passport-local');
 
@@ -20,18 +20,17 @@ const router = require('./routes');
 
 
 
-
 /**
  * Using morgan for logging
  */
-//app.use(morgan);
+// app.use(morgan);
 /**
  * Initializing passport
  */
 app.use(passport.initialize());
 
 /**
- * Use json 
+ * Use json
  */
 app.use(bodyparser.json());
 
@@ -43,11 +42,19 @@ app.use('/api', router);
 /**
  * Gloabal Error Handler.
  */
- app.use((error, req, res, next) =>{
-     res.json({
+app.use((error, req, res, next) => {
+    res.json({
         error,
-     })
- } );
+    });
+});
+
+app.listen(process.env.PORT_NO, () => {
+    console.log(`Working ${process.env.PORT_NO}`);
+});
+
+
+     });
+ });
 
  app.listen(process.env.PORT_NO, () => {
          console.log('Working '+ process.env.PORT_NO);

@@ -2,11 +2,11 @@ const models = require('../../../../models');
 
 /**
  * @description - list all the products.
- * @param {request} req 
- * @param {response} res 
- * @param {next} next 
+ * @param {request} req
+ * @param {response} res
+ * @param {next} next
  */
-const list  = async (req, res, next) => {
+const list = async (req, res, next) => {
     try {
         const products = await models.Product.findAll({
             productName: req.query.productName,
@@ -16,15 +16,15 @@ const list  = async (req, res, next) => {
         });
         if (products) {
             res.json({
-                products
-            })
+                products,
+            });
         } else {
-            let m = 'No products available. Please add some.'
+            const m = 'No products available. Please add some.';
             throw m;
         }
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
-}
+};
 
 module.exports = list;

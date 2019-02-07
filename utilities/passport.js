@@ -16,18 +16,18 @@ passport.use(
     passwordField: 'password',
     passReqToCallback: true
   },
-    async (req,username, password, done) => {
+    async (req, username, password, done) => {
       try {
         // Match user
         const isUser = await models.Users.findOne({
           where: {
-            username: username
+            userName: username,
           }
         });
         if (isUser) {
-          const match = await bcrypt.compare(password, isUser.password);
+          let match = (password === isUser.password)//await bcrypt.compare(password, isUser.password);
           if (match) {
-            return done(null, isUser);
+            return done(null, true);
           } else {
             return done(null, false, { message: 'Password incorrect' });
           }
