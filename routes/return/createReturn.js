@@ -1,41 +1,111 @@
 const models = require('../../models');
+const addRecord = require('../../utils/addToInventory');
+const updateProduct = require('../../utils/updateProduct');
+
 /**
- * @description - function to create returns.
- * @param {req} req 
- * @param {reaponse} res 
- * @param {next} next 
+ * @description - Driver function to create returns.
+ * @param {req} req
+ * @param {reaponse} res
+ * @param {next} next
  */
-const createReturn = async (req, res, next) => {
+const returnDriver = async (req, res, next) => {
     try {
-        const orderExists = await models.orderItems.findOne({
-            where: {
-                orderId: req.body.id,
-            }
-        });
-        if (orderExists) {
-            let orderQuantity = orderExists.orderQuantity;
-            let returnQuantity = req.body.quantity;
-            if (returnQuantity > orderQuantity || returnQuantity <= 0) {
-                let m = "The quantity should be valid";
-                throw m;
-            } else {
-                const returnOrder = await models.Return.create({
-                    orderId: req.body.id,
-                    quantity: returnQuantity,
-                    productId: req.body.productId,
-                });
-                let message = `Return for the orderId: ${returnOrder.orderId} created.`
-                res.json({
-                    message,
-                })
-            }
-        } else {
-            let m = "The order doesn't exist."
-            throw m;
-        }
+        const returns = await createReturn(req.userId, req.orders);
     } catch (error) {
         next(error);
     }
-}
+};
+/**
+ *
+ * @param {*userId} userId
+ * @param {array of objects of returns} orders
+ */
+const createReturn = async (userId, orders) => {
+    try {
+        const result = {};
+        // orders.map(async (eachOrder) => {
+        //     const userOrder = await models.Order.findOne({
+        //         include: [
+        //             {
+        //                 model: models.orderItems,
+        //             },
+        //         ],
+        //         where: {
+        //             id: eachOrder.orderId,
+        //         },
+        //     });
+        //     if (userOrder) {
+        //         const orderProduct = await models.Products.findOne({
+        //             include: [
+        //                 {
+        //                     model: models.orderItems,
+        //                     /**
+        //                      * If i want to get something in the through table(joined table).
+        //                      */
+        //                 },
+        //             ],
+        //             where: {
+        //                 id: eachOrder.productId,
+        //                 /**
+        //                  * If you want to include something from the parent table.
+        //                  */
+        //                 quantity:
+        //             },
+        //         });
+        //         if (orderProduct) {
+        //         }
+        //     }
+
+
+        // });
+        for (const eachOrder of orders) {
+            const userOrder = await models.Order.findOne({
+                include: [
+                    {
+                        model: models.orderItems,
+                    },
+                ],
+                where: {
+                    id: userId,
+                },
+            });
+            if (userOrder) {
+                const orderProduct = await models.Products.findOne({
+                    include: [
+                        {
+                            model: models.orderItems,
+                        },
+                    ],
+                    where: {
+                        id: eachOrder.productId,
+                    },
+                });
+                if (orderProduct) {
+                    if (eachOrder.quantity <= orderProduct.quantity) {
+                        await models.Return.create({
+                            orderId: eachOrder.orderId,
+                            quantity: eachOrder.quantity,
+                            productId: eachOrder.productId,
+                        });
+                        const inventoryUpdation = await addRecord(eachOrder.productId, userId, eachOrder.quantity,eachOrder.salePrice);
+                        const productUpdation = await updateProduct(eachOrder.productId,eachOrder.salePrice,eachOrder.quantity);
+                        if (inventoryUpdation) {
+                            result[eachOrder.orderId] = 'Return Successfully filed.'; 
+                        }
+                    } else {
+                        result[eachOrder.orderId] = 'Invalid Return Qunatity.';
+                    }
+                } else {
+                    result[eachOrder.orderId] = 'Invalid Return Product.';
+                }
+            } else {
+                result[eachOrder.orderId] = 'Invalid Access.';
+            }
+        }
+        return result;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 
 module.exports = createReturn;

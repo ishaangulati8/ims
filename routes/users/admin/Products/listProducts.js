@@ -16,13 +16,13 @@ const list  = async (req, res, next) => {
         });
         if (products) {
             res.json({
-                products
-            })
+                products,
+            });
         } else {
-            let m = 'No products available. Please add some.'
+            const m = 'No products available. Please add some.';
             throw m;
         }
-    } catch(error) {
+    } catch (error) {
         next(error);
     }
 }

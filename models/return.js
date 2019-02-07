@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     orderId: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     productId: DataTypes.INTEGER,
-    date: DataTypes.DATE
+    date: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  }
   }, {});
   Return.associate = function(models) {
     // associations can be defined here
