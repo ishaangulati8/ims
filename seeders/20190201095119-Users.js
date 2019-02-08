@@ -18,9 +18,8 @@ module.exports = {
             "createdAt": new Date(),
             "updatedAt": new Date(),
             "id": 1,
-        }])
-                           )
-                         ),  
+        }]) 
+    ),
 
     down: (queryInterface, Sequelize) => (
     /*
