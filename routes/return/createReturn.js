@@ -3,17 +3,10 @@ const addRecord = require('../../utils/addToInventory');
 const updateProduct = require('../../utils/updateProduct');
 
 /**
-<<<<<<< HEAD
- * @description - function to create returns.
- * @param {req} req 
- * @param {response} res 
- * @param {next} next 
-=======
  * @description - Driver function to create returns.
  * @param {req} req
  * @param {reaponse} res
  * @param {next} next
->>>>>>> 5497d4d69418c1c78cd6e3428af43ee76cd64729
  */
 const returnDriver = async (req, res, next) => {
     try {
