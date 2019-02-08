@@ -46,5 +46,6 @@ const createOrder=async (userId,products)=>{
     }catch(error){
          next(error);
         }
-}        
+}
+module.exports=createOrder;        
         
