@@ -19,18 +19,18 @@ const listUsers = async (req, res, next) => {
                 }
             });
             if (users) {
-                return res.json({
+                res.json({
                     users,
                 });
             } else {
-                let m = 'No user found';
-                return res.json({
+                const m = 'No user found';
+                res.json({
                     m
                 });
             }
         }
         else {
-            let m = "Given role doesn't exist";
+            const m = "Given role doesn't exist";
             throw m;
         }
 

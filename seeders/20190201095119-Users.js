@@ -11,7 +11,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-        queryInterface.bulkInsert('Users', [{
+      queryInterface.bulkInsert('Users', [{
             "userName": 'admin',
             "password": 'admin',
             "role": 1,
@@ -19,9 +19,6 @@ module.exports = {
             "updatedAt": new Date(),
             "id": 1,
         }])
-                           )
-                         ),  
-
     down: (queryInterface, Sequelize) => (
     /*
       Add reverting commands here.
