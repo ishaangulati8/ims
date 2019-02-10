@@ -22,7 +22,6 @@ async function deleteUser(req, res, next) {
             throw m;
         }
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }

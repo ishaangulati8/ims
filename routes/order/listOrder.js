@@ -8,6 +8,23 @@ const models = require('../../models');
  */
 const listAll = async (req, res, next) => {
     try {
+        const allOrders = await listAllOrder();
+        if (allOrders) {
+            res.json({
+                allOrders,
+            })
+        }
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @description: Finds all the orders.
+ * @returns: Returns a promise.
+ */
+const listAllOrder =  async() => {
+    try {
         const allOrders = await models.Orders.findAll({
             include: [{
                 model: models.Product,
@@ -16,9 +33,14 @@ const listAll = async (req, res, next) => {
                 },
             }],
         });
+        if (allOrders) {
+            return allOrders;
+        }
+        throw new Error('Please add orders first.')
     } catch (error) {
-        next(error);
+        throw new Error(error);
     }
-};
+}
 
-module.exports = listAll;
+module.exports.listAll = listAll;
+module.exports.listAllOrder = listAllOrder;

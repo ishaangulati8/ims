@@ -18,7 +18,7 @@ module.exports = {
             "createdAt": new Date(),
             "updatedAt": new Date(),
             "id": 1,
-        }])
+        }])),
     down: (queryInterface, Sequelize) => (
     /*
       Add reverting commands here.
@@ -27,6 +27,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-        queryInterface.bulkDelete('model.Users', null, {}),
+      queryInterface.bulkDelete('model.Users', null, {})),
 
 };

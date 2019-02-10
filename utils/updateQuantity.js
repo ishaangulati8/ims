@@ -1,12 +1,12 @@
 const models = require('../models');
 /**
- * @description : Update the product with given productId.
+ * @description : Update the product with given productId when the order is placed.
  * @returns: Returns a promise.
  * @param {*} productId 
  * @param {*} quantity 
  * @param {*} salePrice 
  */
-const updateProduct = async (productId, quantity, salePrice, productName, description) => {
+const updateProduct = async (productId, quantity, salePrice) => {
     try {
         const findProduct = await models.Product.findOne({
             where: {
@@ -14,13 +14,11 @@ const updateProduct = async (productId, quantity, salePrice, productName, descri
             },
         });
         if (findProduct) {
-            findProduct.productName = productName;
-            findProduct.Quantity += quantity;
+            findProduct.Quantity -= quantity;
             findProduct.salePrice = salePrice;
-            findProduct.productDescription = description;
         }
         await findProduct.save();
-        
+        return 'successful';
     } catch (error) {
         throw new Error(error);
     }

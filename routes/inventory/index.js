@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-const add = require('./addInventory');
+const add = require('./addInventory').driverAdd;
 
-const list = require('./listInventory');
+const list = require('./listInventory').driverList;
 /**
  * Router to add new record int the inventory.
  */

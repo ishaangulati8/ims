@@ -7,37 +7,45 @@ const models = require('../../../../models');
  */
 const listUsers = async (req, res, next) => {
     try {
+        const users = await listAll(req.params.role)
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @description: Returns all the users of a given role.
+ * @param {String} role : Role of the users.
+ * @returns: Returns a promise that contains a list of all users.
+ */
+const listAll = async (role) => {
+    try {
         const roleExists = await models.Roles.findOne({
             where: {
-                role: req.params.role,
+                role: role,
             },
         });
         if (roleExists) {
             const users = await models.Users.findAll({
                 where: {
                     role: roleExists.id,
-                }
+                },
             });
             if (users) {
-                res.json({
-                    users,
-                });
+                return users;
             } else {
                 const m = 'No user found';
-                res.json({
-                    m
-                });
+                throw new Error(m);
             }
         }
         else {
             const m = "Given role doesn't exist";
-            throw m;
+            throw new Error(m);
         }
-
     } catch (error) {
-        console.log(error);
-        next(error);
+        throw new Error(error);
     }
-};
+}
 
-module.exports = listUsers;
+module.exports.listUsers = listUsers;
+module.exports.listAll = listAll;

@@ -1,4 +1,6 @@
 const model = require('../../models/order');
+const addOrderItems = require('../../utils/addOrderItems');
+const updateProduct= require('../../utils/updateQuantity');
 /**
  * @description - create a new order
  * @param {request} req
@@ -6,35 +8,44 @@ const model = require('../../models/order');
  * @param {next} next
  */
 
-async function createOrder(req, res, next) {
-    try {
-        // for(let i =0;i<req.body.productName.length();i++){
-        const productExists = await models.Product.findOne({
-            where: {
-                productName: req.body.productName,
-            },
-        });
-        if (productExists) {
-            const productQuantity = productExists.Quantity;
-            const order_Quantity = req.body.Quantity;
-
-            if (productQuantity >= order_Quantity && order_Quantity > 0) {
-                const order = await models.Order.create({
-                    userId: req.body.userId,
-                });
-                const orderItems = await models.OrderItems.create({
-                    orderId: models.Order.id,
-                    productId: productExists.id,
-                    orderQuantity: req.body.Quantity,
-                });
-                res.json({
-                    success: true,
-                    order,
-                    orderItems,
-                });
-            }
-        }
-    } catch (error) {
+const createDriver=async (req,res,next)=>{
+    try{
+        const user=await createOrder(req.body.userId,req.body.products);
+    }catch(error){
         next(error);
     }
 }
+
+const createOrder=async (userId,products)=>{
+    try {
+        const result={};
+        for(const eachProduct of products){
+            const isProduct=await models.Product.findOne({
+                where:{
+                    id:eachProduct.productId
+                }
+            })
+            if(isProduct){
+                if(eachProduct.Quantity<=isProduct.Quantity){
+                    await models.Order.create({
+                        userId:eachProduct.userId
+                    });
+                    const orderItemsCreation=await addOrderItems(eachProduct.orderId,eachProduct.productId,eachProduct.orderQuantity);
+                    //const inventoryUpdation= await deleteRecord()
+                    const productUpdation = await updateProduct(eachProduct.productId,eachProduct.salePrice,eachProduct.quantity);
+                    if(orderItemsCreation && productUpdation){
+                        result[eachProduct.productId]='Order succesfully filed!';
+                    }
+                }else{
+                    result[eachProduct.productId]='Product Quantity not present in inventory!';
+                }
+            }else {
+                result[eachProduct.productId]='Product does not exist!';
+            }
+        }
+    }catch(error){
+         next(error);
+        }
+}
+module.exports=createOrder;        
+        
