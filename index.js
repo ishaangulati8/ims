@@ -18,8 +18,6 @@ const morgan = require('morgan');
 const router = require('./routes');
 
 
-
-
 /**
  * Using morgan for logging
  */
@@ -48,6 +46,29 @@ app.use((error, req, res, next) => {
     });
 });
 
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', { session: false },
+        (err, user, info) => {
+            if (err) {
+                return next(err);
+            }
+            if (user) {
+                req.login(user, { session: false }, (err) => {
+                    if (err) {
+                        res.send(err);
+                    }
+                });
+                res.json({
+                    success: true,
+                });
+                const token = jwt.sign(user, process.env.secret);
+                res.json({ user, token });
+            }
+            res.json({
+                success: false,
+            });
+        })(req, res, next);
+});
 app.listen(process.env.PORT_NO, () => {
     console.log(`Working ${process.env.PORT_NO}`);
 });
