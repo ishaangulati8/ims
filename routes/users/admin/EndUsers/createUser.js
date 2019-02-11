@@ -6,7 +6,16 @@ const models = require('../../../../models');
  * @param {response} res
  * @param {next} next
  */
-async function createUser(req, res, next) {
+
+const createDriver=async (req,res,next)=>{
+    try{
+        const user=await createUser(req.body.userName,req.body.password,req.body.role);
+    }catch(error){
+        next(error);
+    }
+}
+
+async function createUser(userName,password,role) {
     try {
         const roleExists = await models.Roles.findOne({
             where: {
@@ -28,8 +37,7 @@ async function createUser(req, res, next) {
             throw m;
         }
     } catch (error) {
-        console.log(error);
-        next(error);
+        throw new Error(error);
     }
 }
 

@@ -15,18 +15,6 @@ const listUsers = async (req, res, next) => {
         if (roleExists) {
             const users = await models.Users.findAll({
                 where: {
-<<<<<<< HEAD
-                    role,
-                },
-            });
-            res.json({
-                users,
-            });
-        } else {
-            const m = "Given role doesn't exist";
-            throw m;
-        }
-=======
                     role: roleExists.id,
                 }
             });
@@ -46,7 +34,6 @@ const listUsers = async (req, res, next) => {
             throw m;
         }
 
->>>>>>> 8ed045a6ed76aff24d85305495d211314479f944
     } catch (error) {
         console.log(error);
         next(error);
