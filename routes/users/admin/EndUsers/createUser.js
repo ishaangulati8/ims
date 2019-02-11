@@ -19,22 +19,22 @@ async function createUser(userName,password,role) {
     try {
         const roleExists = await models.Roles.findOne({
             where: {
-                role: req.body.role,
+                role,
             },
         });
         if (roleExists) {
             const user = await models.Users.create({
-                userName: req.body.userName,
-                password: req.body.password,
-                role: roleExists.id,
+                userName,
+                password,
+                role,
             });
             res.json({
                 success: true,
                 user,
             });
         } else {
-            const m = `${req.body.role} doesn't exist. Enter a valid role.`;
-            throw m;
+            const m = `role doesn't exist. Enter a valid role.`;
+            throw new Error(m);
         }
     } catch (error) {
         throw new Error(error);

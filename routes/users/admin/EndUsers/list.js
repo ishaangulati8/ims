@@ -42,10 +42,6 @@ const listAll = async (role) => {
             const m = "Given role doesn't exist";
             throw new Error(m);
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 166d2f5218f1146e85c3466bbcf3cef7e1687871
     } catch (error) {
         throw new Error(error);
     }

@@ -5,11 +5,26 @@ const models = require('../../../../models');
  * @param {response} res
  * @param {next} next
  */
-async function deleteUser(req, res, next) {
+
+const deletion = async (req, res, next) => {
+    try {
+        const users = await deleteUser(req.params.id);
+        if (users) {
+            res.json({
+                users,
+            })
+        } 
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+const deleteUser= async (id)=> {
     try {
         const user = await models.Users.findOne({
             where: {
-                id: req.params.id,
+                id,
             },
         });
         if (user) {
@@ -19,10 +34,10 @@ async function deleteUser(req, res, next) {
             });
         } else {
             const m = 'user does not exist!';
-            throw m;
+            throw new Error(m);
         }
     } catch (error) {
-        next(error);
+        throw new error(error);
     }
 }
 module.exports = deleteUser;
