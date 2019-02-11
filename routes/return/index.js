@@ -7,6 +7,9 @@ const listReturns = require('./listReturns').driverList;
  */
 
 router.post('/createReturn', createReturn);
+/**
+ * MiddleWare for listing all the orders.
+ */
 router.get('/list', listReturns);
 
 module.exports = router;

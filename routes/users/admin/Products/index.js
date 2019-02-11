@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const createProductHandler = require('./createProduct').createProductDriver;
 
-// const deleteProductHandler=require('./deleteProduct');
+ const deleteProductHandler=require('./deleteProduct').deleteProductDriver;
 
 const listHandler = require('./listProducts').list;
 
@@ -16,7 +16,7 @@ router.post('/add', createProductHandler);
 /**
  * delete existing product
  */
-// router.delete('/delete/:id',deleteProductHandler);
+ router.delete('/delete/:id',deleteProductHandler);
 
 /**
  * list products
@@ -26,6 +26,6 @@ router.get('/list', listHandler);
 /**
  * update existing product description
  */
-router.post('/update/:id', updateHandler);
+router.put('/update/:id', updateHandler);
 
 module.exports = router;

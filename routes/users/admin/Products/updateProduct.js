@@ -1,5 +1,5 @@
 const models = require('../../../../models');
-const updateInventory = require('../../../../')
+const updateInventory = require('../../../../utils/addToInventory')
 /**
  * @description - update an existing product.
  * @param {request} req
@@ -14,7 +14,7 @@ const update = async (req, res, next) => {
         const salePrice = req.body.salePrice;
         const productDescription = req.body.productDescription;
         const Quantity = req.body.Quantity;
-        const product = updateProducts(productId, productName, userId, salePrice, productDescription, Quantity);
+        const product = await updateProducts(productId, productName, userId, salePrice, productDescription, Quantity);
         if (product) {
             res.status(200).json({
                 product,

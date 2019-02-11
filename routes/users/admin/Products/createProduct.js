@@ -10,16 +10,16 @@ const models = require('../../../../models');
 
 const createProductDriver= async(req,res,next)=>{
     try{
-        productName=req.body.productName;
-        userId=req.body.userId;
-        salePrice=req.body.saleprice;
-        productDescription=req.body.productDescription;
-        Quantity=req.body.Quantity;
+        const productName=req.body.productName;
+        const userId=req.body.userId;
+        const salePrice=req.body.salePrice;
+        const productDescription=req.body.productDescription;
+        const Quantity=req.body.Quantity;
         const Product= await createProduct(productName,userId,salePrice,productDescription,Quantity);
         if(Product){
             res.json({
                 success: true,
-                product,
+                Product,
             });
         }
     }catch(error){
@@ -38,16 +38,19 @@ async function createProduct(productName,userId,salePrice,productDescription,Qua
             Quantity,
         });
         const pid = product.id;
-        await models.Inventory.create({
+        const inv = await models.Inventory.create({
             productId: pid,
             userId,
-            quantity,
+            quantity: Quantity,
             salePrice,
         });
+        if (inv) {
+            return product;
+        }
         
     } catch (error) {
         throw new Error(error);
     }
 }
-module.exports.createProductDriver=createProductDriver;
+module.exports.createProductDriver = createProductDriver;
 module.exports.createProduct = createProduct;

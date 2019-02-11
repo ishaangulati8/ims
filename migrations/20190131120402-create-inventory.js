@@ -6,19 +6,25 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       productId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      stockistId: {
-        type: Sequelize.INTEGER
+      userId: {
+        type: Sequelize.INTEGER,
       },
-      time: {
+      timeAt: {
         type: Sequelize.DATE,
       },
       quantity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+      },
+      salePrice: {
+        type: Sequelize.INTEGER,
+      },
+      isReturn: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
@@ -27,7 +33,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

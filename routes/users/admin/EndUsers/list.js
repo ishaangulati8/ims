@@ -34,16 +34,16 @@ const listAll = async (role) => {
                     role: roleExists.id,
                 },
             });
-            if (users) {
+            if (users.length !== 0) {
                 return users;
             } else {
                 const m = 'No user found';
-                throw new Error(m);
+                throw m;
             }
         }
         else {
             const m = "Given role doesn't exist";
-            throw new Error(m);
+            throw m;
         }
     } catch (error) {
         throw new Error(error);

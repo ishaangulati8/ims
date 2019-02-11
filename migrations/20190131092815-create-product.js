@@ -10,7 +10,10 @@ module.exports = {
         productName: {
             type: Sequelize.STRING,
         },
-        adminId: {
+        Quantity: {
+            type: Sequelize.INTEGER,
+        },
+        userId: {
             type: Sequelize.INTEGER,
         },
         salePrice: {

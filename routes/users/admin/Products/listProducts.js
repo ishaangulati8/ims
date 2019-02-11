@@ -27,6 +27,11 @@ const list = async (req, res, next) => {
     }
 }
 
+/**
+ * @description: Lists all the products in the products db.
+ * @param {obj} reqObj: Request.Query object.
+ * @returns: Returns a promise that contains the list of all the products.
+ */
 const listAll = async (reqObj) => {
     try {
         const products = await models.Product.findAll({

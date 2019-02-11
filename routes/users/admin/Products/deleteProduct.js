@@ -11,8 +11,8 @@ const deleteProductDriver = async (req, res, next) => {
         const Product = await deleteProduct(req.params.id);
         if (Product) {
             res.json({
-               success:true,
-            }); 
+                success: true,
+            });
         }
     } catch (error) {
         next(error);
@@ -35,7 +35,7 @@ async function deleteProduct(id) {
                 salePrice: product.salePrice,
             });
             await product.destroy();
-            
+            return true;
         }
         const m = 'product does not exist!';
         throw new Error(m);
@@ -43,5 +43,5 @@ async function deleteProduct(id) {
         throw new Error(error);
     }
 }
-module.exports.deleteProductDriver=deleteProductDriver;
+module.exports.deleteProductDriver = deleteProductDriver;
 module.exports.deleteProduct = deleteProduct;
