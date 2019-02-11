@@ -6,7 +6,7 @@ const models = require('../models');
  * @param {*} quantity 
  * @param {*} salePrice 
  */
-const updateProduct = async (productId, quantity, salePrice) => {
+const updateProduct = async (productId, quantity, salePrice, productName, description) => {
     try {
         const findProduct = await models.Product.findOne({
             where: {
@@ -14,10 +14,13 @@ const updateProduct = async (productId, quantity, salePrice) => {
             },
         });
         if (findProduct) {
+            findProduct.productName = productName;
             findProduct.Quantity += quantity;
             findProduct.salePrice = salePrice;
+            findProduct.productDescription = description;
         }
         await findProduct.save();
+        
     } catch (error) {
         throw new Error(error);
     }

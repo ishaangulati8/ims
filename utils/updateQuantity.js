@@ -1,6 +1,6 @@
 const models = require('../models');
 /**
- * @description : Update the product with given productId.
+ * @description : Update the product with given productId when the order is placed.
  * @returns: Returns a promise.
  * @param {*} productId 
  * @param {*} quantity 
@@ -18,6 +18,7 @@ const updateProduct = async (productId, quantity, salePrice) => {
             findProduct.salePrice = salePrice;
         }
         await findProduct.save();
+        return 'successful';
     } catch (error) {
         throw new Error(error);
     }

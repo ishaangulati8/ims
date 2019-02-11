@@ -7,26 +7,51 @@ const models = require('../../../../models');
  */
 const update = async (req, res, next) => {
     try {
-        const userExists = await models.Users.findOne({
-            where: {
-                id: req.param.id,
-            },
-        });
-        if (userExists) {
-            userExists.userName = req.body.userName;
-            userExists.password = req.body.password;
-            userExists.role = req.body.role;
-            await userExists.save();
-            const m = `${userExists.userName} updated`;
+        const name = req.body.userName;
+        const password = req.body.password;
+        const role = req.body.role;
+        const users = await updateUser(req.params.id, name, password, role);
+        if (users) {
             res.json({
-                m,
-            });
-        } else {
-            const m = 'User does not exist';
-            throw m;
-        }
+                users,
+            })
+        } 
+
     } catch (error) {
         next(error);
     }
-};
-module.exports = update;
+}
+
+/**
+ * @description: Updates an existing user.
+ * @param {intefer} id 
+ * @param {string} name 
+ * @param {string} password 
+ * @param {integer} role 
+ * @returns: Returns a promise.
+ */
+
+const updateUser = async (id, name, password, role) => {
+    try {
+        const userExists = await models.Users.findOne({
+            where: {
+                id: id,
+            },
+        });
+        if (userExists) {
+            userExists.userName = name;
+            userExists.password = password;
+            userExists.role = role;
+            await userExists.save();
+            const m = `${userExists.userName} updated`;
+            return m;
+        } 
+        const m = 'User does not exist';
+        throw new Error(m);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports.update = update;
+module.exports.updateUser = updateUser;

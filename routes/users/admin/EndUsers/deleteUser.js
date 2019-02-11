@@ -18,10 +18,10 @@ async function deleteUser(req, res, next) {
                 success: true,
             });
         } else {
-            throw 'user does not exist!';
+            const m = 'user does not exist!';
+            throw m;
         }
     } catch (error) {
-        console.log(error);
         next(error);
     }
 }

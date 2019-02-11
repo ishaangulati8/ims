@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity: DataTypes.INTEGER,
     salePrice: DataTypes.INTEGER,
+    isReturn: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   }, {});
   Inventory.associate = function(models) {
     // associations can be defined here

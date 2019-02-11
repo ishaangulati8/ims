@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
         orderId: DataTypes.INTEGER,
         productId: DataTypes.INTEGER,
         orderQuantity: DataTypes.INTEGER,
+        isReturn : {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        }
     }, {});
     orderItems.associate = function (models) {
     // associations can be defined here

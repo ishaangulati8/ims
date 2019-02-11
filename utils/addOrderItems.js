@@ -1,12 +1,12 @@
 const models = require('../models');
 
 
-const addOrderItems= async (orderId,ProductId,orderQuantity) => {
+const addOrderItems = async (orderId,ProductId,orderQuantity) => {
     try {
         const entry = await models.Inventory.create({
             orderId,
             ProductId,
-            orderQuantity
+            orderQuantity,
         });
         return entry;
     } catch (error) {
@@ -15,4 +15,4 @@ const addOrderItems= async (orderId,ProductId,orderQuantity) => {
     }
 }
 
-module.exports =addOrderItems;
+module.exports = addOrderItems;

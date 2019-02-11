@@ -2,9 +2,9 @@ const router = require('express').Router();
 
 const create = require('./createUser');
 
-const list = require('./list');
+const list = require('./list').listUsers;
 
-const updateUser = require('./updateUser');
+const updateUser = require('./updateUser').update;
 
 const deleteUser = require('./deleteUser');
 /**
