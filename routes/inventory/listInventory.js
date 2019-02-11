@@ -9,7 +9,8 @@ const models = require('../../models');
  */
 const driverList = async (req, res, next) => {
     try {
-        const allRecords = await listInventory(req);
+        const reqObj = {...req.query}
+        const allRecords = await listInventory(reqObj);
         if (allRecords) {
             res.json({
                 allRecords,
@@ -28,12 +29,12 @@ const driverList = async (req, res, next) => {
 const listInventory = async (req) => {
     try {
         const records = await models.Inventory.findAll({
-            productId: req.query.productId,
-            userId: req.query.userId,
-            time: req.query.time,
-            quantity: req.query.quantity,
-            salePrice: req.query.salePrice,
-            isReturn: req.query.isReturn,
+            productId: reqObj.productId,
+            userId: reqObj.userId,
+            time: reqObj.time,
+            quantity: reqObj.quantity,
+            salePrice: reqObj.salePrice,
+            isReturn: reqObj.isReturn,
         });
         if (records) {
             return records;
