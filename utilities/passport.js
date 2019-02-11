@@ -11,7 +11,7 @@ const ExtractJWT=passportJWT.ExtractJwt;
 const models = require('../models');
 
 passport.use(
-  new LocalStrategy({
+  new LocalStrategy({ 
     usernameField: 'userName',
     passwordField: 'password',
     passReqToCallback: true
@@ -46,12 +46,13 @@ opts.secretOrKey= process.env.secret;
 
 passport.use(new JWTStrategy(opts,
 async (jwtPayload,done)=> {
+
   try{
-    const isUser= await models.Users.findOneById(jwtpayload.id);
+    const isUser= await models.Users.findById(jwtPayload.id);
     if(isUser){
       done(null,isUser);
     }else{
-      done(null,false,{message:'Username not registered!'})
+      done(null,false,{message:'Username not registered!'});
     }
       
   }catch(error){

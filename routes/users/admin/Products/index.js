@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const createProductHandler = require('./createProduct');
+const createProductHandler = require('./createProduct').createProductDriver;
 
 // const deleteProductHandler=require('./deleteProduct');
 
