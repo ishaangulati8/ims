@@ -77,4 +77,5 @@ const createReturn = async (userId, orders) => {
     }
 };
 
-module.exports = createReturn;
+module.exports.createReturn = createReturn;
+module.exports.returnDriver = returnDriver;

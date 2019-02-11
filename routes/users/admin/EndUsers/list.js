@@ -7,7 +7,10 @@ const models = require('../../../../models');
  */
 const listUsers = async (req, res, next) => {
     try {
-        const users = await listAll(req.params.role)
+        const users = await listAll(req.params.role);
+        res.json({
+            users,
+        });
     } catch (error) {
         next(error);
     }

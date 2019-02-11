@@ -8,23 +8,40 @@ const models = require('../../../../models');
  */
 const list = async (req, res, next) => {
     try {
-        const products = await models.Product.findAll({
-            productName: req.query.productName,
-            salePrice: req.query.salePrice,
-            productDescription: req.query.productDescription,
-            quantity: req.query.Quantity,
-        });
+        const reqObj = { ...req.query };
+        // reqObj.productName = req.query.productName;
+        // reqObj.salePrice = req.query.salePrice;
+        // reqObj.productDescription = req.query.productDescription;
+        // req.Quantity = req.query.Quantity;
+        const products = await listAll(reqObj);
         if (products) {
-            res.json({
+            res.status(200).json({
                 products,
             });
         } else {
-            const m = 'No products available. Please add some.';
+            const m = 'Products do not exist';
             throw m;
         }
     } catch (error) {
         next(error);
     }
-};
+}
 
-module.exports = list;
+const listAll = async (reqObj) => {
+    try {
+        const products = await models.Product.findAll({
+            productName: reqObj.productName,
+            salePrice: reqObj.salePrice,
+            productDescription: reqObj.productDescription,
+            quantity: reqObj.Quantity,
+        });
+        return products;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports.list = list;
+module.exports.listAll = listAll;
+
+

@@ -6,7 +6,7 @@ const list = require('./list').listUsers;
 
 const updateUser = require('./updateUser').update;
 
-const deleteUser = require('./deleteUser');
+const deleteUser = require('./deleteUser';
 /**
  * Adding a new User
  */

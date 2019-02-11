@@ -4,9 +4,9 @@ const createProductHandler = require('./createProduct');
 
 // const deleteProductHandler=require('./deleteProduct');
 
-const listHandler = require('./listProducts');
+const listHandler = require('./listProducts').list;
 
-const updateHandler = require('./updateProduct');
+const updateHandler = require('./updateProduct').update;
 
 /**
  * add new product

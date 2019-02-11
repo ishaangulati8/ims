@@ -23,7 +23,7 @@ const listAll = async (req, res, next) => {
  * @description: Finds all the orders.
  * @returns: Returns a promise.
  */
-const listAllOrder =  async() => {
+const listAllOrder = async () => {
     try {
         const allOrders = await models.Orders.findAll({
             include: [{

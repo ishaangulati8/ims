@@ -12,22 +12,21 @@ const update = async (req, res, next) => {
         const role = req.body.role;
         const users = await updateUser(req.params.id, name, password, role);
         if (users) {
-            res.json({
+            res.status(200).json({
                 users,
-            })
-        } 
-
+            });
+        }
     } catch (error) {
         next(error);
     }
-}
+};
 
 /**
  * @description: Updates an existing user.
- * @param {intefer} id 
- * @param {string} name 
- * @param {string} password 
- * @param {integer} role 
+ * @param {intefer} id
+ * @param {string} name
+ * @param {string} password
+ * @param {integer} role
  * @returns: Returns a promise.
  */
 
@@ -35,7 +34,7 @@ const updateUser = async (id, name, password, role) => {
     try {
         const userExists = await models.Users.findOne({
             where: {
-                id: id,
+                id,
             },
         });
         if (userExists) {
@@ -45,13 +44,13 @@ const updateUser = async (id, name, password, role) => {
             await userExists.save();
             const m = `${userExists.userName} updated`;
             return m;
-        } 
+        }
         const m = 'User does not exist';
         throw new Error(m);
     } catch (error) {
         throw new Error(error);
     }
-}
+};
 
 module.exports.update = update;
 module.exports.updateUser = updateUser;
