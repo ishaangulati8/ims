@@ -12,6 +12,41 @@ describe('GET userList()', () => {
         .expect(200, done);
     })
 });
+
+describe('GET userList()', () => {
+    it('it should list all the users of the given role', (done) => {
+        server
+        .get("/api/user/admin/enduser/list/Operator")
+        .expect(200, done);
+    })
+});
+
+describe('GET userList()', () => {
+    it('it should list all the users of the given role', (done) => {
+        server
+        .get("/api/user/admin/enduser/list/Stockist")
+        .expect(200, done);
+    })
+});
+
+describe('GET inventoryList()', () => {
+    it('it should list all the inventory records.', (done) => {
+        server
+        .get("/api/inventory/list")
+        .expect(200, done);
+    })
+});
+
+describe('GET productList()', () => {
+    it('it should list all the products.', (done) => {
+        server
+        .get("/api/user/admin/product/list")
+        .expect(200, done);
+    })
+});
+
+
+
 //apiTest.js
 // const supertest = require('supertest');
 // // const app = require('../app');
