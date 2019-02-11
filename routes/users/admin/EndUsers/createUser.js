@@ -10,6 +10,12 @@ const models = require('../../../../models');
 const createDriver=async (req,res,next)=>{
     try{
         const user=await createUser(req.body.userName,req.body.password,req.body.role);
+        if(user){
+            res.json({
+                success: true,
+                user,
+            });
+        }
     }catch(error){
         next(error);
     }
@@ -28,10 +34,7 @@ async function createUser(userName,password,role) {
                 password,
                 role,
             });
-            res.json({
-                success: true,
-                user,
-            });
+            
         } else {
             const m = `role doesn't exist. Enter a valid role.`;
             throw new Error(m);
@@ -41,4 +44,5 @@ async function createUser(userName,password,role) {
     }
 }
 
-module.exports = createUser;
+module.exports.createDriver=createDriver;
+module.exports.createUser = createUser;

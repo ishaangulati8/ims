@@ -29,9 +29,6 @@ const deleteUser= async (id)=> {
         });
         if (user) {
             await user.destroy();
-            res.json({
-                success: true,
-            });
         } else {
             const m = 'user does not exist!';
             throw new Error(m);
@@ -40,4 +37,5 @@ const deleteUser= async (id)=> {
         throw new error(error);
     }
 }
-module.exports = deleteUser;
+module.exports.deletion=deletion;
+module.exports.deleteUser = deleteUser;
