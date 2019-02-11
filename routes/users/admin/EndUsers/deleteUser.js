@@ -12,7 +12,7 @@ const deletion = async (req, res, next) => {
         if (users) {
             res.json({
                 users,
-            })
+            });
         } 
 
     } catch (error) {
@@ -27,8 +27,13 @@ const deleteUser= async (id)=> {
                 id,
             },
         });
+        if (user.id === 1) {
+            return 'Admin can not be deleted.';
+        }
         if (user) {
+            const m = `${user.id} deleted`;
             await user.destroy();
+            return m;
         } else {
             const m = 'user does not exist!';
             throw new Error(m);

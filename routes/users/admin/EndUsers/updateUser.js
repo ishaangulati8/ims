@@ -37,13 +37,18 @@ const updateUser = async (id, name, password, role) => {
                 id,
             },
         });
+        const roleid = await models.Roles.findOne({
+            where: {
+                role,
+            }
+        });
         if (userExists) {
             userExists.userName = name;
             userExists.password = password;
-            userExists.role = role;
+            userExists.role = roleid.id;
             await userExists.save();
             const m = `${userExists.userName} updated`;
-            return m;
+            return userExists;
         }
         const m = 'User does not exist';
         throw new Error(m);

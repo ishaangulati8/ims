@@ -1,7 +1,7 @@
 const models = require('../models');
 
 
-const addOrderItems = async (orderId,ProductId,orderQuantity) => {
+const addOrderItems = async (orderId, ProductId, orderQuantity) => {
     try {
         const entry = await models.Inventory.create({
             orderId,

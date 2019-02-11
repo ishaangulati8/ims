@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Inventory = sequelize.define('Inventory', {
     productId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    time: {
+    timeAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },

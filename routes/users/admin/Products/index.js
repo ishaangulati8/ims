@@ -26,6 +26,6 @@ router.get('/list', listHandler);
 /**
  * update existing product description
  */
-router.post('/update/:id', updateHandler);
+router.put('/update/:id', updateHandler);
 
 module.exports = router;

@@ -1,19 +1,18 @@
 const router = require('express').Router();
 
-// const order = require('./order');
+const order = require('./order');
 
 const auth = require('./Authentication/auth');
-
 const users = require('./users');
 
 // const returns = require('./return');
 
 // const inventory = require('./inventory');
-
+router.use('/auth', auth);
 router.use('/user', users);
 
-router.use('/auth',auth);
-// router.use('/order', order);
+
+router.use('/order', order);
 
 // router.use('/returns', returns);
 
