@@ -1,15 +1,30 @@
 const models = require('../../../../models/index');
+
 /**
  * @description - Delete a Product according to the product id.
  * @param {request} req
  * @param {response} res
  * @param {next} next
  */
-async function deleteProduct(req, res, next) {
+const deleteProductDriver = async (req, res, next) => {
+    try {
+        const Product = await deleteProduct(req.params.id);
+        if (Product) {
+            res.json({
+               success:true,
+            }); 
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+async function deleteProduct(id) {
     try {
         const product = await models.Product.findOne({
             where: {
-                id: req.params.id,
+                id,
             },
         });
         if (product) {
@@ -20,14 +35,13 @@ async function deleteProduct(req, res, next) {
                 salePrice: product.salePrice,
             });
             await product.destroy();
-            return res.json({
-                success: true,
-            });
+            
         }
         const m = 'product does not exist!';
-        throw m;
+        throw new Error(m);
     } catch (error) {
-        next(error);
+        throw new Error(error);
     }
 }
-module.exports = deleteProduct;
+module.exports.deleteProductDriver=deleteProductDriver;
+module.exports.deleteProduct = deleteProduct;

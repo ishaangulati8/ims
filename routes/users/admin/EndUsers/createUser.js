@@ -6,31 +6,43 @@ const models = require('../../../../models');
  * @param {response} res
  * @param {next} next
  */
-async function createUser(req, res, next) {
-    try {
-        const roleExists = await models.Roles.findOne({
-            where: {
-                role: req.body.role,
-            },
-        });
-        if (roleExists) {
-            const user = await models.Users.create({
-                userName: req.body.userName,
-                password: req.body.password,
-                role: roleExists.id,
-            });
+
+const createDriver=async (req,res,next)=>{
+    try{
+        const user=await createUser(req.body.userName,req.body.password,req.body.role);
+        if(user){
             res.json({
                 success: true,
                 user,
             });
-        } else {
-            const m = `${req.body.role} doesn't exist. Enter a valid role.`;
-            throw m;
         }
-    } catch (error) {
-        console.log(error);
+    }catch(error){
         next(error);
     }
 }
 
-module.exports = createUser;
+async function createUser(userName,password,role) {
+    try {
+        const roleExists = await models.Roles.findOne({
+            where: {
+                role,
+            },
+        });
+        if (roleExists) {
+            const user = await models.Users.create({
+                userName,
+                password,
+                role,
+            });
+            
+        } else {
+            const m = `role doesn't exist. Enter a valid role.`;
+            throw new Error(m);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports.createDriver=createDriver;
+module.exports.createUser = createUser;

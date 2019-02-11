@@ -1,28 +1,53 @@
 const models = require('../../../../models');
 
+
+/**
+ * @description - Create a new Product.
+ * @param {request} req
+ * @param {response} res
+ * @param {next} next
+ */
+
+const createProductDriver= async(req,res,next)=>{
+    try{
+        productName=req.body.productName;
+        userId=req.body.userId;
+        salePrice=req.body.saleprice;
+        productDescription=req.body.productDescription;
+        Quantity=req.body.Quantity;
+        const Product= await createProduct(productName,userId,salePrice,productDescription,Quantity);
+        if(Product){
+            res.json({
+                success: true,
+                product,
+            });
+        }
+    }catch(error){
+        next(error);
+    }
+}
+
 // eslint-disable-next-line comma-spacing
-async function createProduct(req,res, next) {
+async function createProduct(productName,userId,salePrice,productDescription,Quantity) {
     try {
         const product = await models.Product.create({
-            productName: req.body.productName,
-            userId: req.body.userId,
-            salePrice: req.body.salePrice,
-            productDescription: req.body.productDescription,
-            Quantity: req.body.Quantity,
+            productName,
+            userId,
+            salePrice,
+            productDescription,
+            Quantity,
         });
         const pid = product.id;
         await models.Inventory.create({
             productId: pid,
-            userId: req.body.userId,
-            quantity: req.body.Quantity,
-            salePrice: req.body.salePrice,
+            userId,
+            quantity,
+            salePrice,
         });
-        res.json({
-            success: true,
-            product,
-        });
+        
     } catch (error) {
-        next(error);
+        throw new Error(error);
     }
 }
-module.exports = createProduct;
+module.exports.createProductDriver=createProductDriver;
+module.exports.createProduct = createProduct;
