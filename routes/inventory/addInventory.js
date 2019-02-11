@@ -1,16 +1,18 @@
 const models = require('../../models');
-const updateProduct = require('../../utils/updateProductQuantity');
+const updateProduct = require('../../utils/updateProductQuantity').orderProduct;
 const addToInventory = require('../../utils/addToInventory');
+const updateQuantity = require('../../utils/updateQuantity')
 /**
- * @description - Add a new record in the inventory.
+ * @description - Add a new record in the inventory. If return is true then it adds 
+ * the given quantity to the product else subtracts the quantity of the products.
  * @param {request} req: Request
  * @param {response} res: Result
  * @param {next} next: Next middleware.
  */
 const driverAdd = async (req, res, next) => {
     try {
-        const update = await add(req.productExists, req.userId, req.qauntity,
-            req.salePrice, req.Return);
+        const update = await add(req.body.productId, req.body.userId, req.body.quantity,
+            req.body.salePrice, req.body.isReturn);
         if (update) {
             res.json({
                 update,
@@ -30,30 +32,31 @@ const driverAdd = async (req, res, next) => {
  * @param {boolean} isReturn: isReturn
  * @returns: Returns a promise.
  */
-const add = async (productId, userId, qauntity, salePrice, isReturn) => {
+const add = async (productId, userId, quantity, salePrice, isReturn) => {
     try {
-        const productExists = await models.Products.findOne({
+        const productExists = await models.Product.findOne({
             where: {
                 id: productId,
             },
         });
         if (productExists) {
-            if (!isReturn) {
-                if (qauntity <= productExists.qauntity) {
+            if (isReturn === false) {
+                if (quantity <= productExists.Quantity) {
                     /** *
                     * Update the quantity to the product.
                     */
                     // eslint-disable-next-line camelcase
-                    const updated_product = await updateProduct(productId, -qauntity, salePrice);
-                    const updatedInventory = await addToInventory(productId, userId, qauntity,
+                    const updated_product = await updateQuantity(productId, quantity, salePrice);
+                    const updatedInventory = await addToInventory(productId, userId, quantity,
                         salePrice, isReturn);
                     return updatedInventory;
                 }
                 /** *
                  * Update the quantity add the return quantity to the product.
                  */
-                const returnedProduct = await updateProduct(productId, qauntity, salePrice);
-                const updatedInventory = await addToInventory(productId, userId, qauntity,
+            } else {
+                const returnedProduct = await updateProduct(productId, quantity, salePrice);
+                const updatedInventory = await addToInventory(productId, userId, quantity,
                     salePrice, isReturn);
                 return updatedInventory;
             }

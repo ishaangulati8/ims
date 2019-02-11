@@ -11,7 +11,7 @@ const createDriver = async (req, res, next) => {
     try {
         const user = await createUser(req.body.userName, req.body.password, req.body.role);
         if (user) {
-            res.json({
+            res.status(200).json({
                 success: true,
                 user,
             });

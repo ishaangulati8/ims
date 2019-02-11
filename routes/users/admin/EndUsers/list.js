@@ -8,7 +8,7 @@ const models = require('../../../../models');
 const listUsers = async (req, res, next) => {
     try {
         const users = await listAll(req.params.role);
-        res.json({
+        res.status(200).json({
             users,
         });
     } catch (error) {
