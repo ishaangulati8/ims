@@ -47,7 +47,7 @@ opts.secretOrKey= process.env.secret;
 passport.use(new JWTStrategy(opts,
 async (jwtPayload,done)=> {
   try{
-    const isUser= await models.Users.findOneById(jwtpayload.id);
+    const isUser= await models.Users.findOneById(jwtPayload.id);
     if(isUser){
       done(null,isUser);
     }else{

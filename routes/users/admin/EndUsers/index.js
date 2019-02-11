@@ -1,12 +1,12 @@
 const router = require('express').Router();
 
-const create = require('./createUser');
+const create = require('./createUser').createDriver;
 
 const list = require('./list').listUsers;
 
 const updateUser = require('./updateUser').update;
 
-const deleteUser = require('./deleteUser';
+const deleteUser = require('./deleteUser').deletion;
 /**
  * Adding a new User
  */

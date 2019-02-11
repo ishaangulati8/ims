@@ -1,5 +1,10 @@
 const models = require('../../models');
-
+/**
+ * @description: Driver function to list all the returns.
+ * @param {req} req 
+ * @param {res} res 
+ * @param {next} next 
+ */
 const driverList = async (req, res, next) => {
     try {
         const reqObj = {...req.query };
@@ -16,7 +21,11 @@ const driverList = async (req, res, next) => {
         next(error);
     }
 }
-
+/**
+ * @description: Takes in an object and returns a promise with all the returns.
+ * @param {object} reqObj
+ * @returns: Returns a promise containig all the return orders.
+ */
 const listAll = async (reqObj) => {
     try {
         const allrecords = await models.Inventory.findAll({
