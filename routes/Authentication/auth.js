@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 require('../../utilities/passport');
 
+/**
+ * Router for logging in the user by authenticating using passport.
+ */
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', { session: false }, (err, user) => {
         if (err) {

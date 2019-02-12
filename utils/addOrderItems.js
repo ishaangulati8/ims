@@ -1,6 +1,12 @@
 const models = require('../models');
 
-
+/**
+ * @description Utility function to add Order items to the through table.
+ * @param {Integer} orderId 
+ * @param {Integer} ProductId 
+ * @param {Integer} orderQuantity 
+ * @returns a promise.
+ */
 const addOrderItems = async (orderId, ProductId, orderQuantity) => {
     try {
         const entry = await models.Inventory.create({

@@ -9,7 +9,9 @@ const ExtractJWT = passportJWT.ExtractJwt;
 
 // Load User model
 const models = require('../models');
-
+/**
+ * Local Strategy for passport User Login .
+ */
 passport.use(
     new LocalStrategy({
         usernameField: 'userName',
@@ -38,6 +40,10 @@ passport.use(
             }
         }),
 );
+
+/**
+ * JWT Strategy for tokens used for authentication.
+ */
 let opts = {};
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.secret;

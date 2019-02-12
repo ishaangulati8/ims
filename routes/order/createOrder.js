@@ -7,7 +7,6 @@ const updateProduct = require('../../utils/updateQuantity');
  * @param {response} res
  * @param {next} next
  */
-
 const createDriver = async (req, res, next) => {
     try {
         const user = await createOrder(req.body.userId, req.body.products);
@@ -21,6 +20,12 @@ const createDriver = async (req, res, next) => {
     }
 };
 
+/**
+ * @description Function to create a new order
+ * @param {Integer} userId 
+ * @param {Array of Objects of products} products 
+ * @returns returns a promise
+ */
 const createOrder = async (userId, products) => {
     try {
         const result = {};

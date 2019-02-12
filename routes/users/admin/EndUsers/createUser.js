@@ -21,6 +21,13 @@ const createDriver = async (req, res, next) => {
     }
 }
 
+/**
+ * @description -create a new user in the db
+ * @param {String} userName 
+ * @param {String} password 
+ * @param {String} role 
+ * @returns returns a promise
+ */
 async function createUser(userName, password, role) {
     try {
         const roleExists = await models.Roles.findOne({
