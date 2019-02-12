@@ -2,13 +2,34 @@ const supertest = require('supertest');
 const app = require('../index')
 const listUser = require('../routes/users/admin/EndUsers/list').listAll;
 
-describe('GET userList()', () => {
-    it('it should list all the users of the given role', (done) => {
+describe("Admin Role Tests", () => {
+    let token;
+
+    it('Should login the user as admin', (done) => {
         supertest(app)
-            .get("/api/user/admin/enduser/list/Admin")
-            .expect(200, done);
+            // .set('Authentication', `Bearer ${token}`)
+            // .get("/api/user/admin/enduser/list/Admin")
+            .post("/api/login")
+            .expect(200)
+            .end((error, res) => {
+                if(error){
+                    return done(error)
+                }
+                token = res.header['token']
+                done();
+            })
     })
-});
+    
+    describe('GET userList()', () => {
+        it('it should list all the users of the given role', (done) => {
+            supertest(app)
+                .set('Authentication', `Bearer ${token}`)
+                .get("/api/user/admin/enduser/list/Admin")
+                .expect(200, done);
+        })
+    });
+})
+
 
 describe('GET userList()', () => {
     it('it should list all the users of the given role', (done) => {

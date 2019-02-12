@@ -2,9 +2,9 @@ const models = require('../models');
 /**
  * @description : Update the product with given productId when the order is placed.
  * @returns: Returns a promise.
- * @param {*} productId 
- * @param {*} quantity 
- * @param {*} salePrice 
+ * @param {Integer} productId 
+ * @param {Integer} quantity 
+ * @param {Integer} salePrice 
  */
 const updateProduct = async (productId, quantity, salePrice) => {
     try {

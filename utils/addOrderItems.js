@@ -1,14 +1,16 @@
 const models = require('../models');
 
 
-const addOrderItems = async (orderId, ProductId, orderQuantity) => {
+const addOrderItems = async (orderId, productId, orderQuantity) => {
     try {
-        const entry = await models.Inventory.create({
+        const entry = await models.orderItems.create({
             orderId,
-            ProductId,
+            productId,
             orderQuantity,
         });
-        return entry;
+        if (entry) {
+            return entry;
+        }
     } catch (error) {
         let m = 'Error while adding the record in the OrderItems';
         throw new Error(m);

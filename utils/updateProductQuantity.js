@@ -1,9 +1,10 @@
 const models = require('../models');
 
 /**
- * @description: Updates a product in the product model.
+ * @description: Updates a product in the product model. Adds the quantity for return.
  * @param {int} productId 
  * @param {int} quantity 
+ * @returns: Returns a promise containing updated product.
  */
 const orderProduct = async (productId, quantity, salePrice) => {
     try {
@@ -20,7 +21,7 @@ const orderProduct = async (productId, quantity, salePrice) => {
             } else if (quantity > 0) {
                 product.Quantity += quantity;
                 product.salePrice = salePrice;
-                product.save();
+                await product.save();
                 return product;
             } else {
                 const error = `Invalid Quantity.`;
@@ -34,4 +35,4 @@ const orderProduct = async (productId, quantity, salePrice) => {
     }
 }
 
-module.exports.orderProduct = orderProduct;
+module.exports = orderProduct;

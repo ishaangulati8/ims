@@ -7,6 +7,6 @@ const admin = require('./admin');
 require('../../utilities/passport');
 
 
-//router.use('/admin', passport.authenticate('jwt', { session: false }), admin) ;
+router.use('/admin', passport.authenticate('jwt', { session: false }), admin) ;
 router.use('/admin', admin);
 module.exports = router;

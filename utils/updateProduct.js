@@ -2,11 +2,11 @@ const models = require('../models');
 /**
  * @description : Update the product with given productId.
  * @returns: Returns a promise.
- * @param {*} productId 
- * @param {*} quantity 
- * @param {*} salePrice 
+ * @param {Integer} productId 
+ * @param {Integer} quantity 
+ * @param {Integer} salePrice 
  */
-const updateProduct = async (productId, quantity, salePrice, productName, description) => {
+const updateProduct = async (productId, quantity, salePrice) => {
     try {
         const findProduct = await models.Product.findOne({
             where: {
