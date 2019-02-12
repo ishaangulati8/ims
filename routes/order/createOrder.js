@@ -11,10 +11,15 @@ const updateProduct = require('../../utils/updateQuantity');
 const createDriver = async (req, res, next) => {
     try {
         const user = await createOrder(req.body.userId, req.body.products);
+        if (user) {
+            res.status(200).json({
+                user,
+            });
+        }
     } catch (error) {
         next(error);
     }
-}
+};
 
 const createOrder = async (userId, products) => {
     try {
@@ -22,16 +27,16 @@ const createOrder = async (userId, products) => {
         for (const eachProduct of products) {
             const isProduct = await models.Product.findOne({
                 where: {
-                    id: eachProduct.productId
-                }
-            })
+                    id: eachProduct.productId,
+                },
+            });
             if (isProduct) {
                 if (eachProduct.Quantity <= isProduct.Quantity) {
                     const thisOrder = await models.Order.create({
-                        userId: eachProduct.userId
+                        userId: eachProduct.userId,
                     });
                     const orderItemsCreation = await addOrderItems(thisOrder.orderId, eachProduct.productId, eachProduct.orderQuantity);
-                    //const inventoryUpdation= await deleteRecord()
+                    // const inventoryUpdation= await deleteRecord()
                     const productUpdation = await updateProduct(eachProduct.productId, eachProduct.salePrice, eachProduct.quantity);
                     if (orderItemsCreation && productUpdation) {
                         result[eachProduct.productId] = 'Order succesfully filed!';
@@ -46,6 +51,6 @@ const createOrder = async (userId, products) => {
     } catch (error) {
         next(error);
     }
-}
+};
 module.exports.createOrder = createOrder;
 module.exports.createDriver = createDriver;

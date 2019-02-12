@@ -15,11 +15,12 @@ const updateProduct = async (productId, quantity, salePrice, productName, descri
         });
         if (findProduct) {
             findProduct.productName = productName;
-            findProduct.Quantity += quantity;
+            findProduct.Quantity -= quantity;
             findProduct.salePrice = salePrice;
             findProduct.productDescription = description;
         }
         await findProduct.save();
+        return findProduct;
         
     } catch (error) {
         throw new Error(error);

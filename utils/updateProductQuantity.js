@@ -17,7 +17,7 @@ const orderProduct = async (productId, quantity, salePrice) => {
                 product.Quantity = 0;
                 await product.save();
                 return product;
-            } else if (quantity <= product.Quantity) {
+            } else if (quantity > 0) {
                 product.Quantity += quantity;
                 product.salePrice = salePrice;
                 product.save();
