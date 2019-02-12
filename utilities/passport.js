@@ -11,21 +11,6 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const models = require('../models');
 
 passport.use(
-<<<<<<< HEAD
-  new LocalStrategy({ 
-    usernameField: 'userName',
-    passwordField: 'password',
-    passReqToCallback: true
-  },
-    async (req, username, password, done) => {
-      try {
-        // Match user
-        const isUser = await models.Users.findOne({
-          where: {
-            userName: username,
-          }
-        });
-=======
     new LocalStrategy({
         usernameField: 'userName',
         passwordField: 'password',
@@ -65,7 +50,6 @@ passport.use(new JWTStrategy({
 async (req, jwtPayload, done) => {
     try {
         const isUser = await models.Users.findById(jwtPayload.id);
->>>>>>> 9ed8f5d2e8a5e6fe07fb9dd325a8f20c10713359
         if (isUser) {
             done(null, isUser);
         } else {
@@ -76,29 +60,4 @@ async (req, jwtPayload, done) => {
     }
 }));
 
-<<<<<<< HEAD
-passport.use(new JWTStrategy(opts,
-async (jwtPayload,done)=> {
-
-  try{
-    const isUser= await models.Users.findById(jwtPayload.id);
-    if(isUser){
-      done(null,isUser);
-    }else{
-      done(null,false,{message:'Username not registered!'});
-    }
-      
-  }catch(error){
-    done(error);
-  }
-}
-))
-
-module.exports=passport;
-
-
-
- 
-=======
 module.exports = passport;
->>>>>>> 9ed8f5d2e8a5e6fe07fb9dd325a8f20c10713359

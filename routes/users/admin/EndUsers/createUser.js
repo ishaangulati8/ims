@@ -37,10 +37,10 @@ async function createUser(userName, password, role) {
             return user;
         } else {
             const m = `role doesn't exist. Enter a valid role.`;
-            throw new Error(m);
+            throw m;
         }
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 
