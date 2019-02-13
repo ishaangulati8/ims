@@ -23,10 +23,10 @@ const update = async (req, res, next) => {
 
 /**
  * @description: Updates an existing user.
- * @param {intefer} id
- * @param {string} name
- * @param {string} password
- * @param {integer} role
+ * @param {Integer} id
+ * @param {String} name
+ * @param {String} password
+ * @param {Integer} role
  * @returns: Returns a promise.
  */
 

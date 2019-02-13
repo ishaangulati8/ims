@@ -8,21 +8,22 @@ const models = require('../../../../models');
  * @param {next} next
  */
 
-const createProductDriver= async(req,res,next)=>{
-    try{
-        const productName=req.body.productName;
-        const userId=req.body.userId;
-        const salePrice=req.body.salePrice;
-        const productDescription=req.body.productDescription;
-        const Quantity=req.body.Quantity;
-        const Product= await createProduct(productName,userId,salePrice,productDescription,Quantity);
-        if(Product){
+const createProductDriver = async (req, res, next) => {
+    try {
+        const productName = req.body.productName;
+        const userId = req.body.userId;
+        const salePrice = req.body.salePrice;
+        const productDescription = req.body.productDescription;
+        const Quantity = req.body.Quantity;
+        const Product = await createProduct(productName, userId, salePrice, 
+            productDescription, Quantity);
+        if (Product) {
             res.json({
                 success: true,
                 Product,
             });
         }
-    }catch(error){
+    } catch (error) {
         next(error);
     }
 }
@@ -37,7 +38,7 @@ const createProductDriver= async(req,res,next)=>{
  * @returns returns a promise which when resolved creates a new user
  */
 // eslint-disable-next-line comma-spacing
-async function createProduct(productName,userId,salePrice,productDescription,Quantity) {
+async function createProduct(productName, userId, salePrice, productDescription, Quantity) {
     try {
         const product = await models.Product.create({
             productName,
@@ -56,7 +57,7 @@ async function createProduct(productName,userId,salePrice,productDescription,Qua
         if (inv) {
             return product;
         }
-        
+
     } catch (error) {
         throw new Error(error);
     }

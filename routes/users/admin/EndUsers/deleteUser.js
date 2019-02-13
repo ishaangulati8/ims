@@ -13,7 +13,7 @@ const deletion = async (req, res, next) => {
             res.status(200).json({
                 users,
             });
-        } 
+        }
 
     } catch (error) {
         next(error);
