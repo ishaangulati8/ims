@@ -1,6 +1,6 @@
 const models = require('../../models');
 const addRecord = require('../../utils/addToInventory');
-const updateProduct = require('../../utils/updateProduct');
+const updateProduct = require('../../utils/updateProductQuantity');
 const returnOrder = require('../../utils/orderReturn')
 /**
  * @description - Driver function to create returns.
@@ -10,7 +10,7 @@ const returnOrder = require('../../utils/orderReturn')
  */
 const returnDriver = async (req, res, next) => {
     try {
-        const returns = await createReturn(req.userId, req.orders);
+        const returns = await createReturn(req.body.userId, req.body.orders);
         res.json({
             returns,
         });
@@ -30,45 +30,37 @@ const createReturn = async (userId, orders) => {
             const userOrder = await models.Order.findOne({
                 include: [
                     {
-                        model: models.orderItems,
+                        model: models.Product,
+                        through: {
+                            attributes: ['orderQuantity', 'isReturn'],
+                        },
+                        where: {
+                            id: eachOrder.productId,
+                        }
                     },
                 ],
                 where: {
-                    id: userId,
+                    id: eachOrder.orderId,
                 },
             });
             if (userOrder) {
-                const orderProduct = await models.Products.findOne({
-                    include: [
-                        {
-                            model: models.orderItems,
-                        },
-                    ],
-                    where: {
-                        id: eachOrder.productId,
-                    },
-                });
-                if (orderProduct) {
-                    if (eachOrder.quantity <= orderProduct.quantity) {
-                        await models.Return.create({
-                            orderId: eachOrder.orderId,
-                            quantity: eachOrder.quantity,
-                            productId: eachOrder.productId,
-                        });
-                        const inventoryUpdation = await addRecord(eachOrder.productId, userId, eachOrder.quantity, eachOrder.salePrice);
-                        const productUpdation = await updateProduct(eachOrder.productId, eachOrder.salePrice, eachOrder.quantity);
-                        const updateOrder = await returnOrder(eachOrder.orderId, eachOrder.productId);
-                        if (inventoryUpdation && productUpdation && updateOrder) {
-                            result[eachOrder.orderId] = 'Return Successfully filed.'; 
-                        }
-                    } else {
-                        result[eachOrder.orderId] = 'Invalid Return Qunatity.';
+                if (eachOrder.quantity <= userOrder.Products[0].orderItems.orderQuantity && !userOrder.Products[0].orderItems.isReturn ){//&& !userOrder.Products[0].orderItems.isReturn){
+                    await models.Return.create({
+                        orderId: eachOrder.orderId,
+                        quantity: eachOrder.quantity,
+                        productId: eachOrder.productId,
+                    });
+                    const inventoryUpdation = await addRecord(eachOrder.productId, userId, eachOrder.quantity, eachOrder.salePrice, true);
+                    const productUpdation = await updateProduct(eachOrder.productId, eachOrder.quantity, eachOrder.salePrice);
+                    const updateOrder = await returnOrder(eachOrder.orderId, eachOrder.productId);
+                    if (inventoryUpdation && productUpdation && updateOrder) {
+                        result[eachOrder.orderId] = 'Return Successfully filed.';
                     }
                 } else {
-                    result[eachOrder.orderId] = 'Invalid Return Product.';
+                    result[eachOrder.orderId] = 'Invalid Return Qunatity or Return is already filled.';
                 }
             } else {
-                result[eachOrder.orderId] = 'Invalid Access.';
+                result[eachOrder.orderId] = 'Invalid Access, the order is not associated with the user.';
             }
         }
         return result;

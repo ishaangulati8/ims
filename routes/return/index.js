@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const createReturn = require('./createReturn').createReturn;
+const createReturn = require('./createReturn').returnDriver;
 const listReturns = require('./listReturns').driverList;
 
 /**

@@ -25,7 +25,7 @@ const listAll = async (req, res, next) => {
  */
 const listAllOrder = async () => {
     try {
-        const allOrders = await models.Orders.findAll({
+        const allOrders = await models.Order.findAll({
             include: [{
                 model: models.Product,
                 through: {

@@ -1,4 +1,4 @@
-const model = require('../../models/order');
+const models= require('../../models');
 const addOrderItems = require('../../utils/addOrderItems');
 const updateProduct = require('../../utils/updateQuantity');
 /**
@@ -38,11 +38,11 @@ const createOrder = async (userId, products) => {
             if (isProduct) {
                 if (eachProduct.Quantity <= isProduct.Quantity) {
                     const thisOrder = await models.Order.create({
-                        userId: eachProduct.userId,
+                        userId,
                     });
-                    const orderItemsCreation = await addOrderItems(thisOrder.orderId, eachProduct.productId, eachProduct.orderQuantity);
+                    const orderItemsCreation = await addOrderItems(thisOrder.id, eachProduct.productId, eachProduct.Quantity);
                     // const inventoryUpdation= await deleteRecord()
-                    const productUpdation = await updateProduct(eachProduct.productId, eachProduct.salePrice, eachProduct.quantity);
+                    const productUpdation = await updateProduct(eachProduct.productId, eachProduct.Quantity, eachProduct.salePrice);
                     if (orderItemsCreation && productUpdation) {
                         result[eachProduct.productId] = 'Order succesfully filed!';
                     }
@@ -53,8 +53,9 @@ const createOrder = async (userId, products) => {
                 result[eachProduct.productId] = 'Product does not exist!';
             }
         }
+        return result;
     } catch (error) {
-        next(error);
+        throw (error);
     }
 };
 module.exports.createOrder = createOrder;

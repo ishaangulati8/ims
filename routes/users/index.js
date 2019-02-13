@@ -9,6 +9,6 @@ const passportJWT=require('passport-jwt');
 const JWTStrategy=passportJWT.Strategy;
 
 
-//router.use('/admin', passport.authenticate('jwt', { session: false }), admin) ;
+router.use('/admin', passport.authenticate('jwt', { session: false }), admin) ;
 router.use('/admin', admin);
 module.exports = router;

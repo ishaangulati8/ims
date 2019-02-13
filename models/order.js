@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     /**
      * Product and order -> many to many
      */
-        models.Product.belongsToMany(Order, { through: 'orderItems', foreignKey: 'productId', otherKey: 'orderId' });
-        Order.belongsToMany(models.Product, { through: 'orderItems', foreignKey: 'orderId', otherKey: 'productId' });
+        models.Product.belongsToMany(Order, { through: models.orderItems, foriegnKey: 'productId', otherKey: 'orderId' });
+        Order.belongsToMany(models.Product, { through: models.orderItems, foreignKey: 'orderId', otherKey: 'productId' });
 
         /**
      * Order and Return -> one to many
