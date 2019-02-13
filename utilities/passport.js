@@ -27,11 +27,11 @@ passport.use(
                     }
                 });
                 if (isUser) {
-                    const match = (password === isUser.password);
+                    const match = (password === isUser.password && req.body.role===isUser.role);
                     if (match) {
                         return done(null, isUser);
                     }
-                    return done(null, false, { message: 'Password incorrect' });
+                    return done(null, false, { message: 'Password incorrect or role not matching' });
                 }
                 return done(null, false, { message: 'This username is not registered' });
 

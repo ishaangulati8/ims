@@ -47,7 +47,7 @@ async function createUser(userName, password, role) {
             throw m;
         }
     } catch (error) {
-        throw error;
+        throw (error);
     }
 }
 
