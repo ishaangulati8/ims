@@ -21,6 +21,13 @@ const createDriver = async (req, res, next) => {
     }
 }
 
+/**
+ * @description -create a new user in the db
+ * @param {String} userName 
+ * @param {String} password 
+ * @param {String} role 
+ * @returns returns a promise
+ */
 async function createUser(userName, password, role) {
     try {
         const roleExists = await models.Roles.findOne({
@@ -37,10 +44,10 @@ async function createUser(userName, password, role) {
             return user;
         } else {
             const m = `role doesn't exist. Enter a valid role.`;
-            throw new Error(m);
+            throw m;
         }
     } catch (error) {
-        throw new Error(error);
+        throw (error);
     }
 }
 

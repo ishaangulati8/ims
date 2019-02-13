@@ -9,7 +9,9 @@ const ExtractJWT = passportJWT.ExtractJwt;
 
 // Load User model
 const models = require('../models');
-
+/**
+ * Local Strategy for passport User Login .
+ */
 passport.use(
     new LocalStrategy({
         usernameField: 'userName',
@@ -25,11 +27,11 @@ passport.use(
                     }
                 });
                 if (isUser) {
-                    const match = (password === isUser.password);
+                    const match = (password === isUser.password && req.body.role===isUser.role);
                     if (match) {
                         return done(null, isUser);
                     }
-                    return done(null, false, { message: 'Password incorrect' });
+                    return done(null, false, { message: 'Password incorrect or role not matching' });
                 }
                 return done(null, false, { message: 'This username is not registered' });
 
@@ -38,6 +40,10 @@ passport.use(
             }
         }),
 );
+
+/**
+ * JWT Strategy for tokens used for authentication.
+ */
 let opts = {};
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.secret;

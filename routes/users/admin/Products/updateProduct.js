@@ -26,7 +26,7 @@ const update = async (req, res, next) => {
 };
 
 /**
- * 
+ * @description updates the products according to the given id
  * @param {Integer} productId 
  * @param {String} productName 
  * @param {Integer} userId 

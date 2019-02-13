@@ -27,6 +27,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-      queryInterface.bulkDelete('model.Users', null, {})),
+      queryInterface.bulkDelete('Users', null, {})),
 
 };

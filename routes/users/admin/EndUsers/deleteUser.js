@@ -20,6 +20,10 @@ const deletion = async (req, res, next) => {
     }
 }
 
+/**
+ * @description deletes a user from the db
+ * @param {Integer} id 
+ */
 const deleteUser= async (id)=> {
     try {
         const user = await models.Users.findOne({

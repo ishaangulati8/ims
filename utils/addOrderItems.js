@@ -1,6 +1,12 @@
 const models = require('../models');
 
-
+/**
+ * @description: Adds the entry to the order table.
+ * @param {Integer} orderId 
+ * @param {Integer} productId 
+ * @param {Integer} orderQuantity 
+ * @returns: Retirns a promise of order.
+ */
 const addOrderItems = async (orderId, productId, orderQuantity) => {
     try {
         const entry = await models.orderItems.create({

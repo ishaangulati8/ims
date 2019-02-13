@@ -27,6 +27,15 @@ const createProductDriver= async(req,res,next)=>{
     }
 }
 
+/**
+ * @description creates a product in the db
+ * @param {String} productName 
+ * @param {Integer} userId 
+ * @param {Integer} salePrice 
+ * @param {String} productDescription 
+ * @param {Integer} Quantity 
+ * @returns returns a promise which when resolved creates a new user
+ */
 // eslint-disable-next-line comma-spacing
 async function createProduct(productName,userId,salePrice,productDescription,Quantity) {
     try {
