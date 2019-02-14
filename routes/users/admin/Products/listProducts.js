@@ -9,10 +9,6 @@ const models = require('../../../../models');
 const list = async (req, res, next) => {
     try {
         const reqObj = { ...req.query };
-        // reqObj.productName = req.query.productName;
-        // reqObj.salePrice = req.query.salePrice;
-        // reqObj.productDescription = req.query.productDescription;
-        // req.Quantity = req.query.Quantity;
         const products = await listAll(reqObj);
         if (products) {
             res.status(200).json({
