@@ -167,7 +167,8 @@ describe("Admin Role Tests", () => {
             // .set('Authentication', `Bearer ${token}`)
             // .get("/api/user/admin/enduser/list/Admin")
             .post("/api/login")
-            .send({userName:'admin',password:'admin',role:1});
+            .send({userName:'admin',password:'admin',role:1})
+            res.body.should.have.property
             .expect(200)
             .end((error, res) => {
                 if(error){

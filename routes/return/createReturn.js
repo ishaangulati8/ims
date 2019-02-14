@@ -1,7 +1,7 @@
 const models = require('../../models');
 const addRecord = require('../../utils/addToInventory');
 const updateProduct = require('../../utils/updateProductQuantity');
-const returnOrder = require('../../utils/orderReturn')
+const returnOrder = require('../../utils/orderReturn');
 /**
  * @description - Driver function to create returns.
  * @param {req} req
@@ -36,7 +36,7 @@ const createReturn = async (userId, orders) => {
                         },
                         where: {
                             id: eachOrder.productId,
-                        }
+                        },
                     },
                 ],
                 where: {
@@ -44,7 +44,7 @@ const createReturn = async (userId, orders) => {
                 },
             });
             if (userOrder) {
-                if (eachOrder.quantity <= userOrder.Products[0].orderItems.orderQuantity && !userOrder.Products[0].orderItems.isReturn ){//&& !userOrder.Products[0].orderItems.isReturn){
+                if (eachOrder.quantity <= userOrder.Products[0].orderItems.orderQuantity && !userOrder.Products[0].orderItems.isReturn) { // && !userOrder.Products[0].orderItems.isReturn){
                     await models.Return.create({
                         orderId: eachOrder.orderId,
                         quantity: eachOrder.quantity,
