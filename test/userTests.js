@@ -110,14 +110,64 @@ describe('GET returnList()', () => {
 //             .expect(200, done);
 //     });
 // });
+
+const {
+
+    chai,
+
+    server,
+
+    expect,
+
+    addTestUser,
+
+    genAuthToken
+
+  } = require("../../../helper")
+
+
+
+describe('Login for the CL users using LDAP', function () {
+
+    it('should respond with 200 and AuthToken if username and password are correct', async function () {
+
+        const res = await chai.request(server)
+
+        .post('/api/v1/login')
+
+        .send({username : "westagilelabs",password : "Dev4cypress!"})
+
+        res.body.should.have.property('success').and.to.be.equal(true)
+
+
+
+    })
+
+    it('should respond with invalid username or password if any of the credentials are wrong', async function () {
+
+        const res = await chai.request(server)
+
+            .post('/api/v1/login')
+
+            .send({username : "westagilelabs",password : "password"})
+
+        res.body.should.have.property('message').and.to.be.equal("Invalid username or password")
+
+        res.body.should.have.property('success').and.to.be.equal(false)
+
+    })
+
+})
+
 describe("Admin Role Tests", () => {
     let token;
 
-    it('Should login the user as admin', (done) => {
+    it('Should login the user as admin and respond with token', async (done) => {
         supertest(app)
             // .set('Authentication', `Bearer ${token}`)
             // .get("/api/user/admin/enduser/list/Admin")
             .post("/api/login")
+            .send({userName:'admin',password:'admin',role:1});
             .expect(200)
             .end((error, res) => {
                 if(error){
