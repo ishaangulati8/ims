@@ -35,14 +35,12 @@ const listAllOrder = async () => {
             include: [{
                 model: models.orderItems,
             }],
-            
         });
         if (allOrders) {
             return allOrders;
         }
         throw new Error('Please add orders first.')
     } catch (error) {
-        console.log(error);
         throw new Error(error);
     }
 }
