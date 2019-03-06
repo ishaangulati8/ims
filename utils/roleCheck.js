@@ -1,13 +1,14 @@
-const roleCheck = (roles) => {
+const roles = require('../models');
+const roleCheck = (roles, roleId) => {
     return (req, res, next) => {
 
-        if(req.user.role === 'admin'){
+        if(req.user.role === 1){
             next();
             return;
         }
         
         const roleMatched = roles.find((roleToBeChecked)=>{
-            return req.user.role === roleToBeChecked;
+            return req.user.role === roleToBeChecked || req.user.role === roleId;
         })
 
         if(roleMatched){

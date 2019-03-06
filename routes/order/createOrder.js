@@ -40,7 +40,7 @@ const createOrder = async (userId, products) => {
                     const thisOrder = await models.Order.create({
                         userId,
                     });
-                    const orderItemsCreation = await addOrderItems(thisOrder.id, eachProduct.productId, eachProduct.Quantity);
+                    const orderItemsCreation = await addOrderItems(thisOrder.id, eachProduct.productId, eachProduct.Quantity, isProduct.productName);
                     // const inventoryUpdation= await deleteRecord()
                     const productUpdation = await updateProduct(eachProduct.productId, eachProduct.Quantity, eachProduct.salePrice);
                     if (orderItemsCreation && productUpdation) {

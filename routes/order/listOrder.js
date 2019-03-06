@@ -26,18 +26,23 @@ const listAll = async (req, res, next) => {
 const listAllOrder = async () => {
     try {
         const allOrders = await models.Order.findAll({
+            // include: [{
+            //     model: models.Product,
+            //     through: {
+            //         attributes: ['orderId', 'productId', 'orderQuantity', 'productName'],
+            //     },
+            // }],
             include: [{
-                model: models.Product,
-                through: {
-                    attributes: ['orderId', 'productId', 'orderQuantity'],
-                },
+                model: models.orderItems,
             }],
+            
         });
         if (allOrders) {
             return allOrders;
         }
         throw new Error('Please add orders first.')
     } catch (error) {
+        console.log(error);
         throw new Error(error);
     }
 }

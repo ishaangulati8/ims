@@ -7,7 +7,7 @@ const admin = require('./admin');
 // require('../../utilities/passport');
 // const passportJWT=require('passport-jwt');
 // const JWTStrategy=passportJWT.Strategy;
-const roleCheck = require('../../utils/roleCheck');
+// const roleCheck = require('../../utils/roleCheck');
 
 
 

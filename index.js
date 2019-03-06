@@ -32,6 +32,12 @@ app.use(passport.initialize());
  */
 app.use(bodyparser.json());
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    next();
+});
+
 /**
  * Middle Ware for handling the requests.
  */

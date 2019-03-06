@@ -27,7 +27,7 @@ passport.use(
                     }
                 });
                 if (isUser) {
-                    const match = (password === isUser.password && req.body.role===isUser.role);
+                    const match = bcrypt.compare(isUser.password, password)//(password === isUser.password);
                     if (match) {
                         return done(null, isUser);
                     }

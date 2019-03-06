@@ -9,9 +9,10 @@ const passport = require('../utilities/passport');
 const roleCheck = require('../utils/roleCheck');
 
 router.use('/auth', auth);
-router.use('/user', passport.authenticate('jwt', {session: false}), roleCheck(['Admin']),users);
-router.use('/order', passport.authenticate('jwt', {session: false}), roleCheck(['Operator']),order);
-router.use('/returns',passport.authenticate('jwt', {session: false}), roleCheck(['Operator']),returns);
-router.use('/inventory', passport.authenticate('jwt', {session: false}),roleCheck(['Stockist']),inventory);
+router.use('/user', passport.authenticate('jwt', {session: false}), roleCheck(['Admin'], 1),users);
+// router.use('/user', users);
+router.use('/order', passport.authenticate('jwt', {session: false}), roleCheck(['Operator'], 2),order);
+router.use('/returns',passport.authenticate('jwt', {session: false}), roleCheck(['Operator'], 2),returns);
+router.use('/inventory', passport.authenticate('jwt', {session: false}),roleCheck(['Stockist'],3),inventory);
 
 module.exports = router;
