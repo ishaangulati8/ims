@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     orderId: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     productId: DataTypes.INTEGER,
+    productName: DataTypes.STRING,
     date: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,

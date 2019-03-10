@@ -33,6 +33,7 @@ const listAll = async (reqObj) => {
             quantity: reqObj.quantity,
             productId: reqObj.productId,
             date: reqObj.date,
+            productName: reqObj.productName,
         });
         return allrecords;
 

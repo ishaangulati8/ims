@@ -18,33 +18,32 @@ passport.use(
         passwordField: 'password',
         passReqToCallback: true,
     },
-        async (req, username, password, done) => {
-            try {
-                // Match user
-                const isUser = await models.Users.findOne({
-                    where: {
-                        userName: username,
-                    }
-                });
-                if (isUser) {
-                    const match = bcrypt.compare(isUser.password, password)//(password === isUser.password);
-                    if (match) {
-                        return done(null, isUser);
-                    }
-                    return done(null, false, { message: 'Password incorrect or role not matching' });
+    async (req, username, password, done) => {
+        try {
+            // Match user
+            const isUser = await models.Users.findOne({
+                where: {
+                    userName: username,
+                },
+            });
+            if (isUser) {
+                const match = bcrypt.compare(isUser.password, password);
+                if (match) {
+                    return done(null, isUser);
                 }
-                return done(null, false, { message: 'This username is not registered' });
-
-            } catch (error) {
-                done(error);
+                return done(null, false, { message: 'Password incorrect or role not matching' });
             }
-        }),
+            return done(null, false, { message: 'This username is not registered' });
+        } catch (error) {
+            done(error);
+        }
+    }),
 );
 
 /**
  * JWT Strategy for tokens used for authentication.
  */
-let opts = {};
+const opts = {};
 opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.secret;
 
