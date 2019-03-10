@@ -49,6 +49,7 @@ const createReturn = async (userId, orders) => {
                         orderId: eachOrder.orderId,
                         quantity: eachOrder.quantity,
                         productId: eachOrder.productId,
+                        productName: eachOrder.productName,
                     });
                     const inventoryUpdation = await addRecord(eachOrder.productId, userId, eachOrder.quantity, eachOrder.salePrice, true);
                     const productUpdation = await updateProduct(eachOrder.productId, eachOrder.quantity, eachOrder.salePrice);
