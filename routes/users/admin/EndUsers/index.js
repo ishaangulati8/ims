@@ -8,7 +8,7 @@ const updateUser = require('./updateUser').update;
 
 const deleteUser = require('./deleteUser').deletion;
 
-const userProducts = require('./userProducts');
+const userProducts = require('./userProducts').userProducts;
 
 /**
  * Adding a new User
