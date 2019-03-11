@@ -15,6 +15,8 @@ const passportLocal = require('passport-local');
 
 const morgan = require('morgan');
 
+const cors = require('cors');
+
 const router = require('./routes');
 
 
@@ -32,11 +34,9 @@ app.use(passport.initialize());
  */
 app.use(bodyparser.json());
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*');
-    next();
-});
+app.use(cors({
+    origin: 'http://localhost:3000',
+}));
 
 /**
  * Middle Ware for handling the requests.
