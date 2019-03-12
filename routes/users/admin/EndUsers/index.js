@@ -10,6 +10,8 @@ const deleteUser = require('./deleteUser').deletion;
 
 const userProducts = require('./userProducts').userProducts;
 
+const listAll = require('./listAll').listAll;
+
 /**
  * Adding a new User
  */
@@ -35,5 +37,7 @@ router.delete('/deleteUser/:id', deleteUser);
  * Listing the products associated with the user.
  */
 router.get('/userProducts/:id', userProducts);
+
+router.get('/listAll', listAll);
 
 module.exports = router;

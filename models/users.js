@@ -17,6 +17,16 @@ module.exports = (sequelize, DataTypes) => {
             throw new Error(error);
         }
     });
+    Users.beforeUpdate(async (user, option) => {
+        try {
+            if (user.password) {
+                const hashPassword = await bcrypt.hash(user.password, 10);
+                user.password = hashPassword;
+            }
+        } catch(error) {
+            throw new Error(error);
+        }
+    })
     Users.associate = function (models) {
         // associations can be defined here
         /**
