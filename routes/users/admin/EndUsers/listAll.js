@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 const models = require('../../../../models');
 
 const listAll = async (req, res, next) => {
@@ -8,13 +9,13 @@ const listAll = async (req, res, next) => {
             return res.json({
                 users,
             });
-        } else {
-            throw `No users found.`
-        }
+        } 
+        throw `No users found.`;
+        
     } catch (error) {
         next(error);
     }
-}
+};
 
 const listUsers = async (reqObj) => {
     try {
@@ -28,7 +29,7 @@ const listUsers = async (reqObj) => {
     } catch (error) {
         throw error;
     }
-}
+};
 
 module.exports.listAll = listAll;
-module.exports.listUsers  = listUsers;
+module.exports.listUsers = listUsers;

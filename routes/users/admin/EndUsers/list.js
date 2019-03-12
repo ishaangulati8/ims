@@ -7,8 +7,7 @@ const models = require('../../../../models');
  */
 const listUsers = async (req, res, next) => {
     try {
-        // const users = await listAll(req.params.role);
-        const users = await listAll(req);
+        const users = await listAll(req.params.role);
         res.status(200).json({
             users,
         });
@@ -22,75 +21,34 @@ const listUsers = async (req, res, next) => {
  * @param {String} role : Role of the users.
  * @returns: Returns a promise that contains a list of all users.
  */
-// const listAll = async (role) => {
-//     try {
-//         if (role !== "") {
-//             const roleExists = await models.Roles.findOne({
-//                 where: {
-//                     role: role,
-//                 },
-//             });
-//             if (roleExists) {
-//                 const users = await models.Users.findAll({
-//                     where: {
-//                         role: roleExists.id,
-//                     },
-//                 });
-//                 if (users.length !== 0) {
-//                     return users;
-//                 } else {
-//                     const m = 'No user found';
-//                     throw m;
-//                 }
-//             }
-//             else {
-//                 const m = "Given role doesn't exist";
-//                 throw m;
-//             }
-//         } else {
-//             const users = models.Users.findAll({
-
-//             })
-//         }
-//     } catch (error) {
-//         throw new Error(error);
-//     }
-// }
-
-const listAll = async (reqObj) => {
+const listAll = async (role) => {
     try {
-        if (reqObj.params.role) {
+        if (role !== "") {
             const roleExists = await models.Roles.findOne({
                 where: {
-                    role: reqObj.params.role,
-                }
+                    role: role,
+                },
             });
             if (roleExists) {
                 const users = await models.Users.findAll({
                     where: {
                         role: roleExists.id,
-                    }
+                    },
                 });
                 if (users.length !== 0) {
                     return users;
                 } else {
-                    throw new Error(`No user Found!`);
+                    const m = 'No user found';
+                    throw m;
                 }
-            } else {
-                throw new Error(`Role Doesn't Exist`);
+            }
+            else {
+                const m = "Given role doesn't exist";
+                throw m;
             }
         } else {
-            const users = await models.findAll({
-                where: {
-                    id: reqObj.id,
-                    userName: reqObj.userName,
-                    password: reqObj.password,
-                    role: reqObj.roles,
-                }
-            });
-            return users;
+            const users = mo
         }
-
     } catch (error) {
         throw new Error(error);
     }
