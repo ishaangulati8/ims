@@ -28,26 +28,57 @@ const createDriver = async (req, res, next) => {
  * @param {String} role 
  * @returns returns a promise
  */
-async function createUser(userName, password, role) {
+// async function createUser(userName, password, role) {
+//     try {
+//         const roleExists = await models.Roles.findOne({
+//             where: {
+//                 role,
+//             },
+//         });
+//         if (roleExists) {
+//             const user = await models.Users.create({
+//                 userName,
+//                 password,
+//                 role: roleExists.id,
+//             });
+//             return user;
+//         } else {
+//             const m = `role doesn't exist. Enter a valid role.`;
+//             throw m;
+//         }
+//     } catch (error) {
+//         throw (error);
+//     }
+// }
+
+const createUser = async (userName, password, role) => {
     try {
-        const roleExists = await models.Roles.findOne({
+        const isUserExists = await models.Users.findOne({
             where: {
-                role,
-            },
-        });
-        if (roleExists) {
-            const user = await models.Users.create({
                 userName,
-                password,
-                role: roleExists.id,
-            });
-            return user;
+            }
+        });
+        if (isUserExists) {
+            throw `${userName} already exists.`;
         } else {
-            const m = `role doesn't exist. Enter a valid role.`;
-            throw m;
+            const roleExists = await models.Roles.findOne({
+                where: {
+                    role,
+                }
+            });
+            if (roleExists) {
+                const user = await models.Users.create({
+                    userName,
+                    password,
+                    role: roleExists.id,
+                });
+                return user;
+            } else {
+                throw `${role} doesn't exist. Enter a valid Role.`;
+            }
         }
     } catch (error) {
-        throw (error);
+        throw error;
     }
 }
 
