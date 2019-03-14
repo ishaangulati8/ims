@@ -17,7 +17,7 @@ module.exports = {
             type: Sequelize.INTEGER,
         },
         salePrice: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.FLOAT,
         },
         productDescription: {
             type: Sequelize.TEXT,

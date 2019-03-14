@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW,
     },
     quantity: DataTypes.INTEGER,
-    salePrice: DataTypes.INTEGER,
+    salePrice: DataTypes.FLOAT,
     isReturn: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
