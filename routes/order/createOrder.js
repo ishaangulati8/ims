@@ -27,7 +27,7 @@ const createDriver = async (req, res, next) => {
  * @param {Array of Objects of products} products 
  * @returns returns a promise
  */
-const createOrder = async (userId, products) => {
+const createOrder = async (userId = 1, products) => {
     try {
         const result = {};
         for (const eachProduct of products) {

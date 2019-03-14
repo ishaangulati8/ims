@@ -7,7 +7,7 @@ const models = require('../models');
  * @param {int} salePrice: Sale Price of the product.
  * @param {Boolean} isReturn: Is product returned.
  */
-const addRecord = async (productId, userId, quantity, salePrice, isReturn) => {
+const addRecord = async (productId, userId = 1, quantity, salePrice, isReturn) => {
     try {
         const entry = await models.Inventory.create({
             productId,
