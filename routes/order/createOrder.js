@@ -1,6 +1,7 @@
 const models= require('../../models');
 const addOrderItems = require('../../utils/addOrderItems');
 const updateProduct = require('../../utils/updateQuantity');
+const addToInventory = require('../../utils/addToInventory');
 /**
  * @description - create a new order
  * @param {request} req
@@ -41,9 +42,10 @@ const createOrder = async (userId, products) => {
                         userId,
                     });
                     const orderItemsCreation = await addOrderItems(thisOrder.id, eachProduct.productId, eachProduct.Quantity, isProduct.productName);
-                    // const inventoryUpdation= await deleteRecord()
+                    //  (productId, userId, quantity, salePrice, isReturn)
+                    const inventoryUpdation= await addToInventory(eachProduct.productId, userId, eachProduct.Quantity, eachProduct.salePrice, false );
                     const productUpdation = await updateProduct(eachProduct.productId, eachProduct.Quantity, eachProduct.salePrice);
-                    if (orderItemsCreation && productUpdation) {
+                    if (orderItemsCreation && productUpdation && inventoryUpdation) {
                         result[eachProduct.productId] = 'Order succesfully filed!';
                     }
                 } else {

@@ -12,8 +12,10 @@ const local = new localStatergy({
 async (req, username, password, done) => {
     try {
         const user = models.Users.findOne({
+            where: {
             userName: username,
             role: req.body.role,
+        }
         });
         if (user) {
             const match = await bcrypt.compare(password, user.password);

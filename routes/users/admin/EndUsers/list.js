@@ -74,10 +74,10 @@ const listAll = async (reqObj) => {
                 if (users.length !== 0) {
                     return users;
                 } else {
-                    throw new Error(`No user Found!`);
+                    throw `No user Found!`;
                 }
             } else {
-                throw new Error(`Role Doesn't Exist`);
+                throw `Role Doesn't Exist`;
             }
         } else {
             const users = await models.findAll({
