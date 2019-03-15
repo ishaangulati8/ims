@@ -4,45 +4,44 @@ const updateProduct = require('../../utils/updateQuantity');
 const addToInventory = require('../../utils/addToInventory');
 const createOrder = async (req, res, next) => {
     try {
-        const order = await createHelper(req.body.userId, req.body.productId,
-            req.body.orderQuantity, req.body.productName);
+        const order = await createHelper(req.body.userId, req.body.orderQuantity, req.body.productName);
         if (order) {
             res.json({
                 order
             })
         }
     } catch (error) {
-        throw error;
+        next( error);
     }
 }
 
-const createHelper = async (userId = 1, productId, orderQuantity, productName) => {
+const createHelper = async (userId = 1, orderQuantity, productName) => {
     try {
         const isProduct = await models.Product.findOne({
             where: {
-                id: productId,
+                productName,
             },
         });
         if (isProduct) {
-            if (isProduct.productName === productName && isProduct.Quantity >= orderQuantity) {
+            if (isProduct.Quantity >= orderQuantity && orderQuantity > 0) {
                 const order = await models.Order.create({
                     userId,
                 });
                 if (order) {
-                    const orderItem = await addOrderItems(order.id, productId, orderQuantity, productName);
-                    const productUpdate = await updateProduct(productId, orderQuantity, isProduct.salePrice);
-                    const inventoryUpdate = await addToInventory(productId, userId, orderQuantity, isProduct.salePrice, false);
+                    const orderItem = await addOrderItems(order.id, isProduct.id, orderQuantity, productName);
+                    const productUpdate = await updateProduct(isProduct.id, orderQuantity, isProduct.salePrice);
+                    const inventoryUpdate = await addToInventory(isProduct.id, userId, orderQuantity, isProduct.salePrice, false);
                     if (orderItem && productUpdate && inventoryUpdate) {
                         return true;
                     } else {
-                        throw 'Error while placing the order.'
+                        throw 'Error while placing the order.';
                     }
                 }
             } else {
-                throw ('Order Cannot be Created!.')
+                throw 'Order Cannot be Created!.';
             }
         } else {
-            throw('Quantity and Name error')
+            throw 'Quantity and Name error';
         }
     } catch (error) {
         throw error;
