@@ -21,7 +21,7 @@ const list = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
 
 /**
  * @description: Lists all the products in the products db.
@@ -31,16 +31,17 @@ const list = async (req, res, next) => {
 const listAll = async (reqObj) => {
     try {
         const products = await models.Product.findAll({
-            productName: reqObj.productName,
-            salePrice: reqObj.salePrice,
-            productDescription: reqObj.productDescription,
-            quantity: reqObj.Quantity,
+            where: {
+                Quantity: {
+                    $gt: 0,
+                },
+            },
         });
         return products;
     } catch (error) {
         throw new Error(error);
     }
-}
+};
 
 module.exports.list = list;
 module.exports.listAll = listAll;
