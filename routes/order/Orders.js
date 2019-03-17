@@ -5,7 +5,7 @@ const listOrders = async (req, res, next) => {
         const orders = await ordersHelper();
         if (orders) {
             res.json({
-                order,
+                orders,
             })
         } else {
             throw `No orders found!`;
