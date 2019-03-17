@@ -12,7 +12,7 @@ const listAll = async (req, res, next) => {
         if (allOrders) {
             res.json({
                 allOrders,
-            })
+            });
         }
     } catch (error) {
         next(error);
@@ -25,25 +25,22 @@ const listAll = async (req, res, next) => {
  */
 const listAllOrder = async () => {
     try {
-        const allOrders = await models.Order.findAll({
-            // include: [{
-            //     model: models.Product,
-            //     through: {
-            //         attributes: ['orderId', 'productId', 'orderQuantity', 'productName'],
-            //     },
-            // }],
+        const allOrders = await models.orderItems.findAll({
             include: [{
-                model: models.orderItems,
+                model: models.Order,
+                order: ['orderId', 'createdAt'],
+                required: true,
             }],
+        
         });
         if (allOrders) {
             return allOrders;
         }
-        throw new Error('Please add orders first.')
+        throw new Error('Please add orders first.');
     } catch (error) {
         throw new Error(error);
     }
-}
+};
 
 module.exports.listAll = listAll;
 module.exports.listAllOrder = listAllOrder;

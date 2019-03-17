@@ -7,12 +7,13 @@ const models = require('../models');
  * @param {Integer} orderQuantity 
  * @returns: Retirns a promise of order.
  */
-const addOrderItems = async (orderId, productId, orderQuantity) => {
+const addOrderItems = async (orderId, productId, orderQuantity, productName) => {
     try {
         const entry = await models.orderItems.create({
             orderId,
             productId,
             orderQuantity,
+            productName,
         });
         if (entry) {
             return entry;

@@ -28,17 +28,13 @@ const driverList = async (req, res, next) => {
  */
 const listAll = async (reqObj) => {
     try {
-        const allrecords = await models.Inventory.findAll({
-            orderId: reqObj.orderId,
-            quantity: reqObj.quantity,
-            productId: reqObj.productId,
-            date: reqObj.date,
-            productName: reqObj.productName,
+        const allrecords = await models.Return.findAll({
+            order: ['orderId'],
         });
         return allrecords;
 
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 

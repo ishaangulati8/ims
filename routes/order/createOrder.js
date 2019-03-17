@@ -1,6 +1,7 @@
 const models= require('../../models');
 const addOrderItems = require('../../utils/addOrderItems');
 const updateProduct = require('../../utils/updateQuantity');
+const addToInventory = require('../../utils/addToInventory');
 /**
  * @description - create a new order
  * @param {request} req
@@ -9,10 +10,10 @@ const updateProduct = require('../../utils/updateQuantity');
  */
 const createDriver = async (req, res, next) => {
     try {
-        const user = await createOrder(req.body.userId, req.body.products);
-        if (user) {
+        const order = await createOrder(req.body.userId, req.body.products);
+        if (order) {
             res.status(200).json({
-                user,
+                order,
             });
         }
     } catch (error) {
@@ -26,9 +27,12 @@ const createDriver = async (req, res, next) => {
  * @param {Array of Objects of products} products 
  * @returns returns a promise
  */
-const createOrder = async (userId, products) => {
+const createOrder = async (userId = 1, products) => {
     try {
         const result = {};
+        const thisOrder = await models.Order.create({
+            userId,
+        });
         for (const eachProduct of products) {
             const isProduct = await models.Product.findOne({
                 where: {
@@ -36,21 +40,20 @@ const createOrder = async (userId, products) => {
                 },
             });
             if (isProduct) {
-                if (eachProduct.Quantity <= isProduct.Quantity) {
-                    const thisOrder = await models.Order.create({
-                        userId,
-                    });
+                if (eachProduct.Quantity <= isProduct.Quantity && eachProduct.Quantity > 0) {
+                    
                     const orderItemsCreation = await addOrderItems(thisOrder.id, eachProduct.productId, eachProduct.Quantity, isProduct.productName);
-                    // const inventoryUpdation= await deleteRecord()
+                    //  (productId, userId, quantity, salePrice, isReturn)
+                    const inventoryUpdation= await addToInventory(eachProduct.productId, userId, eachProduct.Quantity, eachProduct.salePrice, false );
                     const productUpdation = await updateProduct(eachProduct.productId, eachProduct.Quantity, eachProduct.salePrice);
-                    if (orderItemsCreation && productUpdation) {
-                        result[eachProduct.productId] = 'Order succesfully filed!';
+                    if (orderItemsCreation && productUpdation && inventoryUpdation) {
+                        result[products.indexOf(eachProduct)] = 'Order succesfully filed!';
                     }
                 } else {
-                    result[eachProduct.productId] = 'Product Quantity not present in inventory!';
+                    result[products.indexOf(eachProduct)] = 'Product Quantity not present in inventory!';
                 }
             } else {
-                result[eachProduct.productId] = 'Product does not exist!';
+                result[products.indexOf(eachProduct)] = 'Product does not exist!';
             }
         }
         return result;

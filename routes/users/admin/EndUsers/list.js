@@ -38,13 +38,10 @@ const listAll = async (role) => {
                 if (users.length !== 0) {
                     return users;
                 } else {
-                    const m = 'No user found';
-                    throw m;
+                    throw `No user Found!`;
                 }
-            }
-            else {
-                const m = "Given role doesn't exist";
-                throw m;
+            } else {
+                throw `Role Doesn't Exist`;
             }
         } else {
             const users = mo

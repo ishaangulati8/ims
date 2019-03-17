@@ -20,10 +20,7 @@ const listAll = async (req, res, next) => {
 const listUsers = async (reqObj) => {
     try {
         const users = await models.Users.findAll({
-            userName: reqObj.userName,
-            password: reqObj.password,
-            role: reqObj.role,
-            id: reqObj.id,
+            order:['role'],
         });
         return users;
     } catch (error) {

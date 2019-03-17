@@ -32,7 +32,7 @@ const driverAdd = async (req, res, next) => {
  * @param {boolean} isReturn: isReturn
  * @returns: Returns a promise.
  */
-const add = async (productId, userId, quantity, salePrice, isReturn) => {
+const add = async (productId, userId = 1, quantity, salePrice, isReturn) => {
     try {
         const productExists = await models.Product.findOne({
             where: {
