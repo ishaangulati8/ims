@@ -8,7 +8,7 @@ const roleCheck = (roles = '', roleId) => (req, res, next) => {
         }
         
         const roleMatched = roles.find((roleToBeChecked) => {
-            return req.user.role === roleToBeChecked || req.user.role === roleId;
+            return req.user.role === roleToBeChecked || roleId.includes(req.user.role);
         })
 
         if(roleMatched){
