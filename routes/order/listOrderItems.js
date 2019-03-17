@@ -2,7 +2,7 @@ const models = require('../../models');
 
 const listItems = async (req, res, next) => {
     try {
-        const orders = await listHelper(req.query.id);
+        const orders = await listHelper(req.params.id);
         if (orders) {
             res.json({
                 orders,
