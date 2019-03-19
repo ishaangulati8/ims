@@ -2,6 +2,14 @@ const models = require('../../models');
 const addOrderItems = require('../../utils/addOrderItems');
 const updateProduct = require('../../utils/updateQuantity');
 const addToInventory = require('../../utils/addToInventory');
+
+/**
+ * 
+ * @param {request} req 
+ * @param {respponse} res 
+ * @param {next} next 
+ * @description: Files order for a single product.
+ */
 const createOrder = async (req, res, next) => {
     try {
         const order = await createHelper(req.body.userId, req.body.orderQuantity, req.body.productName);
@@ -14,6 +22,15 @@ const createOrder = async (req, res, next) => {
         next( error);
     }
 }
+
+/**
+ * 
+ * @param {Integer} userId 
+ * @param {Integer} orderQuantity 
+ * @param {String} productName 
+ * @description: Helper function to create an order.
+ * @returns: Returns a promise.
+ */
 
 const createHelper = async (userId = 1, orderQuantity, productName) => {
     try {

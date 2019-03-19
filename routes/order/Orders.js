@@ -1,5 +1,12 @@
 const models = require('../../models');
 
+/**
+ * 
+ * @param {request} req 
+ * @param {response} res 
+ * @param {next} next 
+ * @description: Returns a list of orders.
+ */
 const listOrders = async (req, res, next) => {
     try {
         const orders = await ordersHelper();
@@ -15,6 +22,10 @@ const listOrders = async (req, res, next) => {
     }
 }
 
+/**
+ * @description: Lists the orders.
+ * @returns: Returns a promise containing the list of the orders.
+ */
 const ordersHelper = async () => {
     try {
         const allOrders = await models.Order.findAll({});

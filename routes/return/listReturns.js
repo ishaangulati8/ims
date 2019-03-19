@@ -29,7 +29,7 @@ const driverList = async (req, res, next) => {
 const listAll = async (reqObj) => {
     try {
         const allrecords = await models.Return.findAll({
-            order: ['orderId'],
+            order: ['orderId', 'createdAt'],
         });
         return allrecords;
 
