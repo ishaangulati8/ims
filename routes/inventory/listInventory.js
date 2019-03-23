@@ -28,14 +28,7 @@ const driverList = async (req, res, next) => {
  */
 const listInventory = async (reqObj) => {
     try {
-        const records = await models.Inventory.findAll({
-            productId: reqObj.productId,
-            userId: reqObj.userId,
-            time: reqObj.time,
-            quantity: reqObj.quantity,
-            salePrice: reqObj.salePrice,
-            isReturn: reqObj.isReturn,
-        });
+        const records = await models.Inventory.findAll({});
         if (records) {
             return records;
         } 

@@ -11,6 +11,6 @@ router.post('/add', add);
 /**
  * Router to list all records in the inventory.
  */
-router.get('/list/:offset', list);
+router.get('/list', list);
 
 module.exports = router;

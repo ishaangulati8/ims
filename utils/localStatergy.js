@@ -11,7 +11,7 @@ const local = new localStatergy({
 },
 async (req, username, password, done) => {
     try {
-        const user = models.Users.findOne({
+        const user = await models.Users.findOne({
             where: {
             userName: username,
             role: req.body.role,

@@ -51,7 +51,7 @@ const createReturn = async (userId, orders) => {
                         productId: eachOrder.productId,
                         productName: eachOrder.productName,
                     });
-                    const inventoryUpdation = await addRecord(eachOrder.productId, userId, eachOrder.quantity, eachOrder.salePrice, true);
+                    const inventoryUpdation = await addRecord(eachOrder.productId, userId, eachOrder.quantity, userOrder.Products[0].salePrice, true);
                     const productUpdation = await updateProduct(eachOrder.productId, eachOrder.quantity, eachOrder.salePrice);
                     const updateOrder = await returnOrder(eachOrder.orderId, eachOrder.productId);
                     if (inventoryUpdation && productUpdation && updateOrder) {
